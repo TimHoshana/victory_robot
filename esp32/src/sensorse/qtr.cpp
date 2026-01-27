@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "configs.h"
+#include <QTRSensors.h>
 
 class QTR{
     private:
