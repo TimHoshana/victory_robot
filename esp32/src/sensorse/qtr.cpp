@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "configs.h"
 
-class QRT{
+class QTR{
     private:
     uint16_t _linePosition[8];
     public:
