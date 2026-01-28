@@ -15,11 +15,11 @@ class QTR {
     uint16_t sensorValues[SensorCount];
     public:
 
-    static uint16_t _qrtMax[SensorCount];
-    static uint16_t _qrtMin[SensorCount];
+    uint16_t _qrtMax[SensorCount];
+    uint16_t _qrtMin[SensorCount];
 
-    QTR(const uint8_t qtrSensors[], const uint16_t qrtMax_[], const uint16_t qrtMin_[], uint8_t qtrLed) ;
-    std::array<uint8_t, SensorCount> linePosition();
+    QTR(const uint8_t qtrSensors[], const uint16_t qrtMax_[], const uint16_t qrtMin_[], uint8_t qtrLed);
+    std::array<uint8_t, SensorCount> linePosition() const;
     void calibration();
     void setup();
     void lineDetaction();

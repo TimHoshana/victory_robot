@@ -20,12 +20,8 @@ void loop()
 
   Qtr.linePosition();
 
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(Qtr.linePosition()[i]);
-    Serial.print('\t');
-  }
+  auto pos = Qtr.linePosition();
   Serial.println();
 
-  delay(250);
+  delay(200);
 }
