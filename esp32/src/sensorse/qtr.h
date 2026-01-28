@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <QTRSensors.h>
-#include "configs.h"
+#include <array>
 
 
 const uint8_t SensorCount = 8;
@@ -18,7 +18,7 @@ class QTR {
     static uint16_t _qrtMax[SensorCount];
     static uint16_t _qrtMin[SensorCount];
 
-    QTR(const uint8_t qtrSensors[], const uint16_t qrtMax[], const uint16_t qrtMin[], uint8_t qtrLed) ;
+    QTR(const uint8_t qtrSensors[], const uint16_t qrtMax_[], const uint16_t qrtMin_[], uint8_t qtrLed) ;
     std::array<uint8_t, SensorCount> linePosition();
     void calibration();
     void setup();
