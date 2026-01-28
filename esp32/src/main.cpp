@@ -41,8 +41,6 @@ void setup()
   qtr.setEmitterPin(qtrLed);
 
   
-  qtr.calibrationOn.maximum = (uint16_t *)miN;
-  qtr.calibrationOn.minimum = (uint16_t *)maX;
   Serial.begin(115200);
 }
 
@@ -58,11 +56,7 @@ void loop()
   // reflectance and 1023 means minimum reflectance
   for (uint8_t i = 0; i < SensorCount; i++)
   {
-    if ((sensorValues[i] - 140 < 0))
-      linePosition[i] = 0;
-    else
-      linePosition[i] = map(sensorValues[i], 1023, 4068, 0, 255);
-    Serial.print('\t');
+    linePosition[i] = map(sensorValues[i], qrtMax[i], qrtMin[i], 255, 0);
   }
 
   for (uint8_t i = 0; i < SensorCount; i++)
