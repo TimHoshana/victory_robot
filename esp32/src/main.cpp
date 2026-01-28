@@ -1,7 +1,7 @@
 #include <Arduino.h>
-#include <QTRSensors.h>
+#include <array>
 #include "configs.h"
-#include "sensorse/qtr.h"
+#include "sensorse/QTR.h"
 
 
 QTR Qtr(qtrSensor, qrtMax, qrtMin, qtrLed);

@@ -1,4 +1,4 @@
-#include "qtr.h"
+#include "QTR.h"
 
 QTR::QTR(const uint8_t qtrSensors[], const uint16_t qrtMax[], const uint16_t qrtMin[], uint8_t qtrLed)
 {
@@ -6,8 +6,8 @@ QTR::QTR(const uint8_t qtrSensors[], const uint16_t qrtMax[], const uint16_t qrt
         _qtrSensor[i] = qtrSensors[i];
         _qrtMax[i] = qrtMax[i];
         _qrtMin[i] = qrtMin[i];
-        _qtrLed = qtrLed;
     }
+    _qtrLed = qtrLed;
 }
 
 void QTR::setup(){
