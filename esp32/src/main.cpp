@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <QTRSensors.h>
-#define LED_BUILTIN 21
+#include "configs.h"
 
 // This example is designed for use with six analog QTR sensors. These
 // reflectance sensors should be connected to analog pins A0 to A5. The
@@ -37,58 +37,40 @@ void setup()
 {
   // configure the sensors
   qtr.setTypeAnalog();
-  qtr.setSensorPins((const uint8_t[]){12, 14, 27, 26, 25, 33, 32, 13}, SensorCount);
-  qtr.setEmitterPin(21);
+  qtr.setSensorPins(qtrSensor, SensorCount);
+  qtr.setEmitterPin(qtrLed);
 
-  delay(500);
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, HIGH); // turn on Arduino's LED to indicate we are in calibration mode
-
-  // analogRead() takes about 0.1 ms on an AVR.
-  // 0.1 ms per sensor * 4 samples per sensor read (default) * 6 sensors
-  // * 10 reads per calibrate() call = ~24 ms per calibrate() call.
-  // Call calibrate() 400 times to make calibration take about 10 seconds.
-  for (uint16_t i = 0; i < 400; i++)
-  {
-    qtr.calibrate();
-  }
-  digitalWrite(LED_BUILTIN, LOW); // turn off Arduino's LED to indicate we are through with calibration
-
-  // print the calibration minimum values measured when emitters were on
+  
+  qtr.calibrationOn.maximum = (uint16_t *)miN;
+  qtr.calibrationOn.minimum = (uint16_t *)maX;
   Serial.begin(115200);
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(qtr.calibrationOn.minimum[i]);
-    Serial.print(' ');
-  }
-  Serial.println();
-
-  // print the calibration maximum values measured when emitters were on
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(qtr.calibrationOn.maximum[i]);
-    Serial.print(' ');
-  }
-  Serial.println();
-  Serial.println();
-  delay(1000);
 }
 
 void loop()
 {
-  // read calibrated sensor values and obtain a measure of the line position
-  // from 0 to 5000 (for a white line, use readLineWhite() instead)
-  uint16_t position = qtr.readLineBlack(sensorValues);
+  // read raw sensor values
+  qtr.read(sensorValues);
 
-  // print the sensor values as numbers from 0 to 1000, where 0 means maximum
-  // reflectance and 1000 means minimum reflectance, followed by the line
-  // position
+  uint8_t linePosition[8];
+
+
+  // print the sensor values as numbers from 0 to 1023, where 0 means maximum
+  // reflectance and 1023 means minimum reflectance
   for (uint8_t i = 0; i < SensorCount; i++)
   {
-    Serial.print(sensorValues[i]);
+    if ((sensorValues[i] - 140 < 0))
+      linePosition[i] = 0;
+    else
+      linePosition[i] = map(sensorValues[i], 1023, 4068, 0, 255);
     Serial.print('\t');
   }
-  Serial.println(position);
+
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(linePosition[i]);
+    Serial.print('\t');
+  }
+  Serial.println();
 
   delay(250);
 }
