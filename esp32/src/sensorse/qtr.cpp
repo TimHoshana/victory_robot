@@ -6,7 +6,7 @@ QTR::QTR(const uint8_t qtrSensors[], const uint16_t qrtMax_[], const uint16_t qr
     for (uint8_t i = 0; i < SensorCount; i++) {
         _qtrSensor[i] = qtrSensors[i];
         _qrtMax[i] = qrtMax_[i];
-        _qrtMin[i] = qrtMax_[i];
+        _qrtMin[i] = qrtMin_[i];
     }
     _qtrLed = qtrLed;
 };
@@ -21,12 +21,7 @@ void QTR::lineDetaction(){
   qtr.read(sensorValues);
   for (uint8_t i = 0; i < SensorCount; i++)
   {
-      _linePosition[i] = map(sensorValues[i], _qrtMin[i], _qrtMin[i], 255, 0);
-  }
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(_linePosition[i]);
-    Serial.print('\t');
+      _linePosition[i] = map(sensorValues[i], _qrtMin[i], _qrtMax[i], 255, 0);
   }
   Serial.println();
 }
