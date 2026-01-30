@@ -16,7 +16,7 @@ public:
         pinMode(IN1, OUTPUT);
         pinMode(IN2, OUTPUT);
     }
-    void setSpeed(int val) {
+    void Go(int val) {
         bool motorGo = (micros() % 8160 < 400 + (positive(val) * 28));
         if (motorGo && val > 0) {
             digitalWrite(IN1, LOW);
@@ -29,4 +29,4 @@ public:
             digitalWrite(IN2, LOW);
         }
     }
-}
+};

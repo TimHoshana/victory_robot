@@ -1,75 +1,19 @@
-/*
-Author  : Andrea Lombardo
-Site    : https://www.lombardoandrea.com
-Source  : https://github.com/AndreaLombardo/L298N/
 
-Here you can see how to work in a common configuration without the needed of Enable pin. 
-
-Make sure your module has a jumper in place.
-
-When L298N has a jumper instead of Enable pin, the speed is always 255.
-
-Wiring schema in file "L298N - Schema_without_EN_pin.png"
-*/
-
-// Include the library
-#include <L298N.h>
 #include <Arduino.h>
+#include "configs.h"
+#include "sensorse/motor.h"
 
-// Pin definition
-const uint8_t IN1 = 5;
-const uint8_t IN2 = 17;
-const uint8_t IN3 = 18;
-const uint8_t IN4 = 19;
 
-uint8_t positive(int value){
-  return (value > 0) ? value : -value;
-}
-// Create one motor instance
-void motorLoop(int val) {
-  bool motorGo = (micros() % 8160 < 400 + (positive(val)*28));
-  if (motorGo && val > 0) {
-    
-    digitalWrite(IN1,   0);
-    digitalWrite(IN2, 1); 
-    
-    digitalWrite(IN3, 1);
-    digitalWrite(IN4, 0);
-  }
-  else if (motorGo && val < 0){
-    digitalWrite(IN1,   1);
-    digitalWrite(IN2, 0); 
-    
-    digitalWrite(IN3, 0);
-    digitalWrite(IN4, 1);
-  }
-  else{    
-    digitalWrite(IN1,   LOW);
-    digitalWrite(IN2, LOW);
-    digitalWrite(IN3, LOW);
-    digitalWrite(IN4, LOW);
-  }
-};
+Motor *motor1 = new Motor(M1_IN1, M1_IN2);
+Motor *motor2 = new Motor(M2_IN2, M2_IN1);
 
 
 void setup() {
-  Serial.begin(115200);
-  // put your setup code here, to run once:
-  pinMode(IN1, OUTPUT);
-  pinMode(IN2, OUTPUT);
-
-  pinMode(IN3, OUTPUT);
-  pinMode(IN4, OUTPUT);
-  delay(2000); //wait for serial monitor
-}
+    motor1->setup();
+    motor2->setup();
+};
 
 void loop() {
-  static int speed = 255;
-  motorLoop(speed);
+    motor1->Go(20);
+    motor2->Go(-20);
 }
-
-
-
-
-
-
