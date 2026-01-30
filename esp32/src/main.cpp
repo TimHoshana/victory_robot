@@ -25,8 +25,9 @@ const uint8_t IN4 = 19;
 // Create one motor instance
 
 void setup() {
+  Serial.begin(115200);
   // put your setup code here, to run once:
-   pinMode(IN1, OUTPUT);
+  pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT);
 
   pinMode(IN3, OUTPUT);
@@ -34,19 +35,25 @@ void setup() {
 }
 
 void loop() {
-  
-  digitalWrite(IN1,   0);
-  digitalWrite(IN2, 1); 
-  
-  digitalWrite(IN3, 1);
-  digitalWrite(IN4, 0);
-  delay(4);
-  digitalWrite(IN1,   LOW);
-  digitalWrite(IN2, LOW);
-  digitalWrite(IN3, LOW);
-  digitalWrite(IN4, LOW);
-  delay(4);
+  if (millis() % 8 < 1){
+    
+    digitalWrite(IN1,   0);
+    digitalWrite(IN2, 1); 
+    
+    digitalWrite(IN3, 1);
+    digitalWrite(IN4, 0);
+  }
+  else{    
+    digitalWrite(IN1,   LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+  }
 }
+
+
+
+
 
 
 void motorLoop(int val, uint8_t pinIn1, uint8_t pinIn2) {
