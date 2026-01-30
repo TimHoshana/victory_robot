@@ -22,7 +22,35 @@ const uint8_t IN2 = 17;
 const uint8_t IN3 = 18;
 const uint8_t IN4 = 19;
 
+uint8_t positive(int value){
+  return (value > 0) ? value : -value;
+}
 // Create one motor instance
+void motorLoop(int val) {
+  bool motorGo = (micros() % 8160 < 400 + (positive(val)*16));
+  if (motorGo && val > 0) {
+    
+    digitalWrite(IN1,   0);
+    digitalWrite(IN2, 1); 
+    
+    digitalWrite(IN3, 1);
+    digitalWrite(IN4, 0);
+  }
+  else if (motorGo && val < 0){
+    digitalWrite(IN1,   1);
+    digitalWrite(IN2, 0); 
+    
+    digitalWrite(IN3, 0);
+    digitalWrite(IN4, 1);
+  }
+  else{    
+    digitalWrite(IN1,   LOW);
+    digitalWrite(IN2, LOW);
+    digitalWrite(IN3, LOW);
+    digitalWrite(IN4, LOW);
+  }
+};
+
 
 void setup() {
   Serial.begin(115200);
@@ -35,20 +63,7 @@ void setup() {
 }
 
 void loop() {
-  if (millis() % 8 < 1){
-    
-    digitalWrite(IN1,   0);
-    digitalWrite(IN2, 1); 
-    
-    digitalWrite(IN3, 1);
-    digitalWrite(IN4, 0);
-  }
-  else{    
-    digitalWrite(IN1,   LOW);
-    digitalWrite(IN2, LOW);
-    digitalWrite(IN3, LOW);
-    digitalWrite(IN4, LOW);
-  }
+  motorLoop(-200);
 }
 
 
@@ -56,18 +71,3 @@ void loop() {
 
 
 
-void motorLoop(int val, uint8_t pinIn1, uint8_t pinIn2) {
-  val = map(val, 0, 1023, -255, 255);
-  if (val > 0){
-    analogWrite(pinIn2, val);
-    digitalWrite(pinIn1, 0);
-  }
-  else if (val < 0){
-    analogWrite(pinIn2, 255+val);
-    digitalWrite(pinIn1, 1);
-  }
-  else {
-    digitalWrite(pinIn1, 0);
-    digitalWrite(pinIn2, 0);
-  }
-}
