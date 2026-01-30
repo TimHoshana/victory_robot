@@ -34,20 +34,20 @@ void setup() {
 }
 
 void loop() {
-   // put your main code here, to run repeatedly:
-
-  //Controlling speed (0   = off and 255 = max speed):     
-  //(Optional)
-  analogWrite(9, 100); //ENA   pin
-  analogWrite(10, 200); //ENB pin
-  //(Optional)
   
-  digitalWrite(IN1,   HIGH);
+  digitalWrite(IN1,   0);
+  digitalWrite(IN2, 1); 
+  
+  digitalWrite(IN3, 1);
+  digitalWrite(IN4, 0);
+  delay(4);
+  digitalWrite(IN1,   LOW);
   digitalWrite(IN2, LOW);
-
-  digitalWrite(IN3, HIGH);
-   digitalWrite(IN4, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+  delay(4);
 }
+
 
 void motorLoop(int val, uint8_t pinIn1, uint8_t pinIn2) {
   val = map(val, 0, 1023, -255, 255);
