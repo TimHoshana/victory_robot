@@ -1,7 +1,7 @@
 
 #include <Arduino.h>
 #include "configs.h"
-#include "sensorse/motor.h"
+#include "engines/motor.h"
 
 
 Motor *motor1 = new Motor(M1_IN1, M1_IN2);
