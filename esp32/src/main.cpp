@@ -27,7 +27,7 @@ uint8_t positive(int value){
 }
 // Create one motor instance
 void motorLoop(int val) {
-  bool motorGo = (micros() % 8160 < 400 + (positive(val)*16));
+  bool motorGo = (micros() % 8160 < 400 + (positive(val)*28));
   if (motorGo && val > 0) {
     
     digitalWrite(IN1,   0);
@@ -60,10 +60,12 @@ void setup() {
 
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
+  delay(2000); //wait for serial monitor
 }
 
 void loop() {
-  motorLoop(-200);
+  static int speed = 255;
+  motorLoop(speed);
 }
 
 
