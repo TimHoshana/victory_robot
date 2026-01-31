@@ -15,17 +15,18 @@ private:
         return (value > 0) ? value : -value;
     }
 
-    static Motor *motor1 = new Motor(M1_IN1, M1_IN2);
-    static Motor *motor2 = new Motor(M2_IN2, M2_IN1);
+    Motor *motor1 = new Motor(M1_IN1, M1_IN2);
+    Motor *motor2 = new Motor(M2_IN2, M2_IN1);
 public:
-    static uint8_t motorSpeed = speed;
-    static void setup(){
+    uint8_t motorSpeed = speed;
+    void setup(){
         motor1->setup();
         motor2->setup();
     }
-    static void follow(int _speed, int deraction){
-        int robotSpeed = map(_speed, -255, 255, -1, 1)*motorSpeed*map(positive(deraction), 0, 255, 1, 2);
-        motor1->Go(robotSpeed + map(_speed, -255, 255, -1, 1)*deraction)
-        motor2->Go(robotSpeed - map(_speed, -255, 255, -1, 1)*deraction)
+    void follow(int _speed, int deraction){
+        int robotSpeed = (_speed*motorSpeed) / (255);
+        int derSpeed = (_speed*deraction) / 510;
+        motor1->Go(robotSpeed+derSpeed);
+        motor2->Go(robotSpeed-derSpeed);
     }
 };
