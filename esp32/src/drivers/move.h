@@ -11,10 +11,10 @@ enum rotationDirection : uint16_t{
 
 class Move{
 private:
-    uint8_t positive(int value) {
-        return (value > 0) ? value : -value;
+    const uint8_t pos(int value) {
+        return (value > 0) ? value : 0;
     }
-
+    
     Motor *motor1 = new Motor(M1_IN1, M1_IN2);
     Motor *motor2 = new Motor(M2_IN2, M2_IN1);
 public:
@@ -24,8 +24,8 @@ public:
         motor2->setup();
     }
     void follow(int _speed, int deraction){
-        int robotSpeed = (_speed*motorSpeed) / (255);
-        int derSpeed = (_speed*deraction) / 510;
+        int robotSpeed = (motorSpeed*pos(_speed-deraction)) / (255);
+        int derSpeed = (_speed*deraction) / 255;
         motor1->Go(robotSpeed+derSpeed);
         motor2->Go(robotSpeed-derSpeed);
     }

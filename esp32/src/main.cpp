@@ -11,5 +11,6 @@ void setup() {
 };
 
 void loop() {
-    move.follow(210, -10);
+    speed = 255;
+    move.follow(100, 255);
 }
