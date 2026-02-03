@@ -18,13 +18,21 @@ void QTR::setup(){
 }
 
 void QTR::lineDetaction(){
-  qtr.read(sensorValues);
+  qtr.readLineBlack(sensorValues);
   for (uint8_t i = 0; i < SensorCount; i++)
   {
-      _linePosition[i] = map(sensorValues[i], _qrtMin[i], _qrtMax[i], 255, 0);
+      _linePosition[i] = map(sensorValues[i], 0, 1000, 0, 255);
   }
   Serial.println();
 }
+
+void QTR::calibration(){
+    for (uint16_t i = 0; i < 400; i++)
+    {
+      qtr.calibrate();
+    }
+}
+
 
 std::array<uint8_t, SensorCount> QTR::linePosition() const
 {

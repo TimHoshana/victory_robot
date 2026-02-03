@@ -1,16 +1,36 @@
-
 #include <Arduino.h>
+#include <array>
 #include "configs.h"
-#include "drivers/move.h"
-#include "drivers/followLine.h"
+#include "sensorse/QTR.h"
 
-Move *move = new Move();
-FollowLine follow(move);
 
-void setup() {
-    move->setup();
-};
 
-void loop() {
-    follow.findDeraction();
+
+QTR Qtr(qtrSensor, qrtMax, qrtMin, qtrLed);
+
+void setup()
+{
+  // configure the sensors
+  Qtr.setup();
+  Serial.begin(115200);
+  Qtr.calibration();
+}
+
+void loop()
+{
+  // read raw sensor values
+  Qtr.lineDetaction();
+
+  Qtr.linePosition();
+
+  auto pos = Qtr.linePosition();
+
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(pos[i]);
+    Serial.print('\t');
+  }
+  Serial.println();
+
+  delay(10);
 }

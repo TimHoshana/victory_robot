@@ -16,5 +16,5 @@ const uint8_t M2_IN2 = 19; // IN4 driver pin for motor 2
 uint8_t speed = 150;
 
 // QTR calibration
-uint16_t qrtMax[8] = {173, 164, 166, 161, 171, 116, 113, 163};
+uint16_t qrtMax[8] = {233, 1023, 1023, 705, 894, 625, 945, 187};
 uint16_t qrtMin[8] = {4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095};
