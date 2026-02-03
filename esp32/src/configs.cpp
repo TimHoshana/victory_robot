@@ -11,6 +11,10 @@ const uint8_t M1_IN2 = 17; // IN2 dricer pin for motor 1
 const uint8_t M2_IN1 = 18; // IN3 driver pin for motor 2
 const uint8_t M2_IN2 = 19; // IN4 driver pin for motor 2
 
+//Color senser
+const uint8_t colorSens1 = 16;
+const uint8_t colorSens2 = 35;
+
 
 //robot porameters
 uint8_t speed = 150;

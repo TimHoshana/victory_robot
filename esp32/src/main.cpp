@@ -5,12 +5,13 @@
 
 
 
-
 QTR Qtr(qtrSensor, qrtMax, qrtMin, qtrLed);
 
 void setup()
 {
   // configure the sensors
+  pinMode(colorSens1, INPUT);
+  pinMode(colorSens2, INPUT);
   Qtr.setup();
   Serial.begin(115200);
   Qtr.calibration();
@@ -30,6 +31,7 @@ void loop()
     Serial.print(pos[i]);
     Serial.print('\t');
   }
+  Serial.print(", "+String(analogRead(colorSens1))+ " "+String(analogRead(colorSens2)));
   Serial.println();
 
   delay(10);
