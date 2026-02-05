@@ -1,38 +1,23 @@
 #include <Arduino.h>
 #include <array>
 #include "configs.h"
-#include "sensorse/QTR.h"
+#include "sensorse/Ultrasonic.h"
 
+Ultrasonic sonic1(2, 4); 
+Ultrasonic sonic2(21, 15); 
 
-
-QTR Qtr(qtrSensor, qrtMax, qrtMin, qtrLed);
 
 void setup()
 {
-  // configure the sensors
-  pinMode(colorSens1, INPUT);
-  pinMode(colorSens2, INPUT);
-  Qtr.setup();
   Serial.begin(115200);
-  Qtr.calibration();
+  sonic1.setup();
+  sonic2.setup();
 }
 
 void loop()
 {
-  // read raw sensor values
-  Qtr.lineDetaction();
-
-  Qtr.linePosition();
-
-  auto pos = Qtr.linePosition();
-
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(pos[i]);
-    Serial.print('\t');
-  }
-  Serial.print(", "+String(analogRead(colorSens1))+ " "+String(analogRead(colorSens2)));
-  Serial.println();
-
-  delay(10);
+  sonic1.distanceCheck();
+  sonic2.distanceCheck();
+  Serial.println(String(sonic2.getDistanceMM())+", ");
+  delay(200);
 }

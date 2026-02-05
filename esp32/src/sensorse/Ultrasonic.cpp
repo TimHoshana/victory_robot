@@ -9,8 +9,11 @@ void Ultrasonic::setup(){
   
   digitalWrite(_trig_pin, LOW);
 }
-void Ultrasonic:: distanceCheck(){
+void Ultrasonic:: distanceCheck() {
+    digitalWrite(_trig_pin, LOW);
+    delayMicroseconds(2);
     digitalWrite(_trig_pin, HIGH);
+    delayMicroseconds(10);
     digitalWrite(_trig_pin, LOW);
     timing = pulseIn(_echo_pin, HIGH);
     _distance_mm = (timing * 3.4) / 2;

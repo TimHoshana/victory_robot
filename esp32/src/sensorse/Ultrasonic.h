@@ -9,6 +9,6 @@ private:
 public:
   Ultrasonic(const uint8_t trig_pin, const uint8_t echo_pin);
   void setup();
-  void distanceCheck();
+  void distanceCheck( );
   uint16_t getDistanceMM() { return _distance_mm; }
 };
