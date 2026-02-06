@@ -5,7 +5,7 @@
 
 class FollowLine{
     private:
-    uint16_t _deraction;
+    int _deraction;
     uint16_t _linePosition;
     Move *_move;
     QTR *_qtr;

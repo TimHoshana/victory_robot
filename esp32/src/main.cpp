@@ -18,5 +18,5 @@ void setup() {
 
 void loop() {
     followLine.findDeraction();
-    delay(100);
+    followLine.follow();
 }
