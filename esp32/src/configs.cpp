@@ -17,7 +17,7 @@ const uint8_t colorSens2 = 35;
 
 
 //robot porameters
-uint8_t speed = 150;
+uint8_t speed = 250;
 
 // QTR calibration
 uint16_t qrtMax[8] = {233, 1023, 1023, 705, 894, 625, 945, 187};

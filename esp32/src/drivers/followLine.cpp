@@ -17,6 +17,8 @@ void FollowLine::findDeraction(){
     uint8_t shiLeft;
     uint8_t shiRight;
     uint8_t lineThickness;
+
+    bool linPosetion[8] = {false, false, false, false, false, false, false, false};
     _qtr->lineDetaction();
 
     _qtr->linePosition();
@@ -26,16 +28,20 @@ void FollowLine::findDeraction(){
 
     for (uint8_t i = 0; i < 8; i++)
     {
-        lineThickness += (pos[i] == 255);
+        if(pos[i] == 255){
+            lineThickness++;
+            linPosetion[i] = true;
+        }
+
     }
     for (uint8_t i = 0; i < 4; i++)
     {
-        shiftLeft += (pos[4-i] == 255)*(i+1);
-        shiftRight += (pos[4+i] == 255)*(i+1);
+        shiftLeft += (linPosetion[4-i])*(i+1);
+        shiftRight += (linPosetion[4+i])*(i+1);
     }
     for (uint8_t i = 0; i < 4; i++)
     {
-        if (pos[4-i] == 255)
+        if (linPosetion[4-i])
         {
             shiLeft = i+1;
             break;
@@ -43,22 +49,15 @@ void FollowLine::findDeraction(){
     }
     for (uint8_t i = 0; i < 4; i++)
     {
-        if (pos[4+i] == 255)
+        if (linPosetion[4+i])
         {
             shiRight = i+1;
             break;
         }
     }
-    if (lineThickness < 3)
-    {
-        Serial.println(String(shiLeft)+", "+String(shiRight)+", "+String(lineThickness)+", "+String((shiLeft- shiRight)*25));
-        _deraction = (shiLeft- shiRight)*25;
-    }
-    else
-    {
-        Serial.println(String(shiftLeft)+", "+String(shiftRight)+", "+String(lineThickness)+", "+String((shiLeft- shiRight)*25));
-        _deraction = (shiftLeft - shiftRight)/lineThickness;
-    }
+    
+    _deraction = lineThickness < 3 ? (shiLeft- shiRight)*20 : (shiftLeft - shiftRight)*25;
+    Serial.println(_deraction);
 
 }
 
