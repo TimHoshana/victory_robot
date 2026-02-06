@@ -57,7 +57,6 @@ void FollowLine::findDeraction(){
     }
     
     _deraction = lineThickness < 3 ? (shiLeft- shiRight)*20 : (shiftLeft - shiftRight)*25;
-    Serial.println(_deraction);
 
 }
 
