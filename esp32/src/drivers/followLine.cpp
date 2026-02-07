@@ -59,6 +59,7 @@ void FollowLine::findDeraction(){
     _deraction = (shiLeft - shiRight)*rotationPawer;
     //_deraction = lineThickness < 3 ? (shiLeft- shiRight)*25 : (shiftLeft - shiftRight)*25;
 }
+
 void FollowLine::printData(){
 
     for (uint8_t i = 0; i < 8; i++)
