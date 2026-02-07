@@ -26,7 +26,7 @@ public:
     }
     void follow(int _speed, int deraction){
         
-        int robotSpeed = (motorSpeed*pos(_speed-deraction)) / (255);
+        int robotSpeed = (motorSpeed*pos(uint8_t(_speed)-uint8_t(deraction))) / (255);
         int derSpeed = (_speed*deraction*motorSpeed) / 65025;
         motor1->Go(robotSpeed+2*derSpeed);
         motor2->Go(robotSpeed-2*derSpeed);

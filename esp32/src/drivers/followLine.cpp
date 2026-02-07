@@ -70,5 +70,5 @@ void FollowLine::printData(){
 }
 
 void FollowLine::follow(){
-    _move->follow(17, -_deraction);
+    _move->follow(115, -_deraction);
 }
