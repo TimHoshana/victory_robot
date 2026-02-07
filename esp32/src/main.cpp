@@ -45,9 +45,10 @@ void setup() {
 void Task1code(void * parameter) {
     for (;;) {
         followLine.findDeraction();
+        followLine.printData();
         vTaskDelay(1); //  очень желательно
     }
-}
+}   
 
 void Task2code(void * parameter) {
     for (;;) {

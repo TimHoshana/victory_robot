@@ -19,6 +19,7 @@ extern const uint8_t colorSens2;
 
 //robot porameters
 extern uint8_t speed;
+extern uint8_t rotationPawer; //отнасительноя разнеца в градусах для поворота.
 enum motorProportions : uint8_t {propLeft, propRight}; //отнасительноя разнеца в скоростях мотора.
 
 //QTR-A8 calibration val;
