@@ -3,12 +3,6 @@
 #include "configs.h"
 #include "engines/motor.h"
 
-enum rotationDirection : uint16_t{
-    forword,
-    backward,
-    left,
-    right
-};
 
 class Move{
 private:
