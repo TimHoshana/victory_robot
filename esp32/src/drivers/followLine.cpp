@@ -56,7 +56,8 @@ void FollowLine::findDeraction(){
             break;
         }
     }
-    _deraction = (shiLeft - shiRight)*rotationPawer;
+    int shiftDeraction = (shiLeft - shiRight);
+    _deraction = shiftDeraction*rotationPawer;
     //_deraction = lineThickness < 3 ? (shiLeft- shiRight)*25 : (shiftLeft - shiftRight)*25;
 }
 
@@ -71,5 +72,5 @@ void FollowLine::printData(){
 }
 
 void FollowLine::follow(){
-    _move->follow(115, -_deraction);
+    _move->follow(120, -_deraction);
 }

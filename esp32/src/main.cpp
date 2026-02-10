@@ -15,11 +15,18 @@ FollowLine followLine(&move, Qtr);
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 
+
+
 void setup() {
+    
+    pinMode(colorSens1, INPUT);
+    pinMode(colorSens2, INPUT);
     Serial.begin(115200);
 
     move.setup();
     followLine.setup();
+
+    
 
     xTaskCreatePinnedToCore(
         Task1code,
@@ -45,12 +52,12 @@ void setup() {
 void Task1code(void * parameter) {
     for (;;) {
         followLine.findDeraction();
-        followLine.printData();
+        Serial.println(", "+String(analogRead(colorSens2))+ " "+String(analogRead(colorSens1)));
         vTaskDelay(1); //  очень желательно
     }
 }   
 
-void Task2code(void * parameter) {
+void Task2code(void *parameter) {
     for (;;) {
         followLine.follow();
         vTaskDelay(1); //  очень желательно

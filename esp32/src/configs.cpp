@@ -12,8 +12,8 @@ const uint8_t M2_IN1 = 18; // IN3 driver pin for motor 2
 const uint8_t M2_IN2 = 19; // IN4 driver pin for motor 2
 
 //Color senser
-const uint8_t colorSens1 = 16;
-const uint8_t colorSens2 = 35;
+const uint8_t colorSens1 = 35;
+const uint8_t colorSens2 = 34;
 
 
 //robot porameters
@@ -23,3 +23,4 @@ uint8_t rotationPawer = 28; //отнасительноя разнеца в гр�
 // QTR calibration
 uint16_t qrtMax[8] = {233, 1023, 1023, 705, 894, 625, 945, 187};
 uint16_t qrtMin[8] = {4095, 4095, 4095, 4095, 4095, 4095, 4095, 4095};
+
