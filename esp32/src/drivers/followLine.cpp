@@ -12,16 +12,18 @@ void FollowLine::setup(){
 }
 
 void FollowLine::shiftCheck(){
-    if(shiftLeft <  2 && shiftRight < 2){
-        Shift = forword;
+    if (lineThickness != 0){
+        if(shiLeft <  2 && shiRight < 2){
+            Shift = forword;
+        }
+        else if (shiLeft > shiRight)
+        {
+            Shift = left;
+        } else
+        {
+            Shift = right;
+        } 
     }
-    else if (shiftLeft > shiftRight)
-    {
-        Shift = left;
-    } else
-    {
-        Shift = right;
-    } 
 }
 
 
@@ -78,12 +80,13 @@ void FollowLine::printData(){
         Serial.print(String(_qtr->linePosition()[i]==255) + " ");
     }
     Serial.println(":    " +String(shiftLeft) + " " + String(shiftRight) + ",  " + String(shiLeft) + " " + String(shiRight) 
-    + " " + String(lineThickness) + " " + String(_deraction));
+    + " " + String(lineThickness) + " " + String(_deraction)+ " " + 
+    String(Shift == forword ? "forword" : (Shift == left ? "left" : "right")));
 }
 
-void FollowLine::follow(){
+void FollowLine::follow(){     
     if(lineThickness != 0)
-      _move->follow(120, -_deraction);
+      _move->follow(120, _deraction);
     else
       _move->follow(120, Shift);
 }

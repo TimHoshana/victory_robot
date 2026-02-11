@@ -52,7 +52,6 @@ void setup() {
 void Task1code(void * parameter) {
     for (;;) {
         followLine.findDeraction();
-        Serial.println(", "+String(analogRead(colorSens2))+ " "+String(analogRead(colorSens1)));
         vTaskDelay(1); //  очень желательно
     }
 }   
