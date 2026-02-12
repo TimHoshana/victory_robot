@@ -86,7 +86,7 @@ void FollowLine::printData(){
 
 void FollowLine::follow(){     
     if(lineThickness != 0)
-      _move->follow(120, _deraction);
+      _move->follow(130, _deraction);
     else
       _move->follow(120, Shift);
 }
