@@ -1,33 +1,41 @@
 #pragma once
-#include <arduino.h>
+#include <Arduino.h>
 
 class Motor {
 private:
-    const uint8_t IN1;
-    const uint8_t IN2;
+    uint8_t IN1;
+    uint8_t IN2;
 
-    uint8_t positive(int value) {
-        return (value > 0) ? value : -value;
-    }
+    uint8_t channel1;
+    uint8_t channel2;
+
 public:
-    Motor(uint8_t in1, uint8_t in2)
-        : IN1(in1), IN2(in2) {
-    }
+    Motor(uint8_t in1, uint8_t in2, uint8_t ch1, uint8_t ch2)
+        : IN1(in1), IN2(in2), channel1(ch1), channel2(ch2) {}
+
     void setup() {
-        pinMode(IN1, OUTPUT);
-        pinMode(IN2, OUTPUT);
+        ledcSetup(channel1, 20000, 8); // 20 kHz, 8 бит
+        ledcSetup(channel2, 20000, 8);
+
+        ledcAttachPin(IN1, channel1);
+        ledcAttachPin(IN2, channel2);
     }
+
     void Go(int val) {
-        bool motorGo = (micros() % 8160 < 400 + (positive(val) * 28));
-        if (motorGo && val > 0) {
-            digitalWrite(IN1, LOW);
-            digitalWrite(IN2, HIGH);
-        } else if (motorGo && val < 0) {
-            digitalWrite(IN1, HIGH);
-            digitalWrite(IN2, LOW);
-        } else {
-            digitalWrite(IN1, LOW);
-            digitalWrite(IN2, LOW);
+        
+        val =  map(val, 255, -255, 150, -150)+(val>0 ? 1 : -1)*75;
+
+        if (val > 0) {
+            ledcWrite(channel1, 0);
+            ledcWrite(channel2, val);
+        }
+        else if (val < 0) {
+            ledcWrite(channel1, -val);
+            ledcWrite(channel2, 0);
+        }
+        else {
+            ledcWrite(channel1, 0);
+            ledcWrite(channel2, 0);
         }
     }
 };

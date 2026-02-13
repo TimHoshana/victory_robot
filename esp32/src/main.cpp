@@ -16,8 +16,8 @@ FollowLine followLine(&move, Qtr);
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 
-Ultrasonic sonic1(2, 4); 
-Ultrasonic sonic2(21, 15); 
+Ultrasonic sonic1(trigF, echoF); 
+Ultrasonic sonic2(trigL, echoL); 
 
 
 
@@ -56,17 +56,19 @@ void Task1code(void * parameter) {
         followLine.findDeraction();
         sonic1.distanceCheck();
         sonic2.distanceCheck();
-        Serial.println("Front: "+String(sonic1.getDistanceMM())+" Left side: "+String(sonic2.getDistanceMM()));
+        followLine.printData();
         vTaskDelay(1); //  очень желательно
     }
 }   
 
 void Task2code(void *parameter) {
     for (;;) {
-        followLine.follow();
+        
+        followLine.follow(90);
         vTaskDelay(1); //  очень желательно
+
     }
-}
+} 
 
 void loop() {
     vTaskDelay(portMAX_DELAY);

@@ -31,5 +31,5 @@ class FollowLine{
     void printData();
     void setup();
     void findDeraction();
-    void follow();
+    void follow(short speed);
 };

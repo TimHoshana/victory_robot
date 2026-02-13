@@ -84,9 +84,9 @@ void FollowLine::printData(){
     String(Shift == forword ? "forword" : (Shift == left ? "left" : "right")));
 }
 
-void FollowLine::follow(){     
+void FollowLine::follow(short speed){     
     if(lineThickness != 0)
-      _move->follow(130, _deraction);
+      _move->follow(speed, _deraction);
     else
-      _move->follow(120, Shift);
+      _move->follow(speed, Shift);
 }

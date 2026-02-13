@@ -16,6 +16,13 @@ extern const uint8_t M2_IN2; // IN4 driver pin for motor 2
 extern const uint8_t colorSens1;
 extern const uint8_t colorSens2;
 
+//distance sensors
+//front
+extern const uint8_t trigF;
+extern const uint8_t echoF;
+//Left
+extern const uint8_t trigL;
+extern const uint8_t echoL;
 
 //robot porameters
 extern uint8_t speed;

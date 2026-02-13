@@ -15,10 +15,18 @@ const uint8_t M2_IN2 = 19; // IN4 driver pin for motor 2
 const uint8_t colorSens1 = 35;
 const uint8_t colorSens2 = 34;
 
+//distance sensors 
+//Front
+const uint8_t trigF = 2;
+const uint8_t echoF = 4;
+//Left
+const uint8_t trigL = 15;
+const uint8_t echoL = 21;
+
 
 //robot porameters
 uint8_t speed = 250; //отнасительноя разнеца в градусах для поворота.
-uint8_t rotationPawer = 28; //отнасительноя разнеца в градусах для поворота.
+uint8_t rotationPawer = 18; //отнасительноя разнеца в градусах для поворота.
 
 // QTR calibration
 uint16_t qrtMax[8] = {233, 1023, 1023, 705, 894, 625, 945, 187};

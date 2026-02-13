@@ -11,8 +11,8 @@ private:
     }
 public:
     
-    Motor *motor1 = new Motor(M1_IN1, M1_IN2);
-    Motor *motor2 = new Motor(M2_IN2, M2_IN1);
+    Motor *motor1 = new Motor(M1_IN1, M1_IN2, 0, 1);
+    Motor *motor2 = new Motor(M2_IN2, M2_IN1, 2, 3);
     uint8_t motorSpeed = speed;
     void setup(){
         motor1->setup();
@@ -24,5 +24,9 @@ public:
         int derSpeed = (_speed*deraction*motorSpeed) / 65025;
         motor1->Go(robotSpeed-2*derSpeed);
         motor2->Go(robotSpeed+2*derSpeed);
+    }
+    void go(int speed){
+        motor1->Go(speed);
+        motor2->Go(speed);
     }
 }; 
