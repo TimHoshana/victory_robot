@@ -1,4 +1,5 @@
 #include "Ultrasonic.h"
+
 Ultrasonic::Ultrasonic(const uint8_t trig_pin, const uint8_t echo_pin){
   _trig_pin = trig_pin;
   _echo_pin = echo_pin;
@@ -9,12 +10,14 @@ void Ultrasonic::setup(){
   
   digitalWrite(_trig_pin, LOW);
 }
+
+
 void Ultrasonic:: distanceCheck() {
     digitalWrite(_trig_pin, LOW);
     delayMicroseconds(2);
     digitalWrite(_trig_pin, HIGH);
     delayMicroseconds(10);
     digitalWrite(_trig_pin, LOW);
-    timing = pulseIn(_echo_pin, HIGH);
-    _distance_mm = (timing * 3.4) / 2;
+    timing = pulseIn(_echo_pin, HIGH, 2000);
+    _distance_mm = timing != 0 ? (timing * 3.4) / 2 : 2600;
 }

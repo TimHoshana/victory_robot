@@ -3,6 +3,7 @@
 #include "engines/motor.h"
 #include "drivers/move.h"
 #include "drivers/followLine.h"
+#include "sensorse/Ultrasonic.h"
 
 // 🔹 ПРОТОТИПЫ ЗАДАЧ
 void Task1code(void * parameter);
@@ -15,19 +16,20 @@ FollowLine followLine(&move, Qtr);
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 
+Ultrasonic sonic1(2, 4); 
+Ultrasonic sonic2(21, 15); 
+
 
 
 void setup() {
-    
-    pinMode(colorSens1, INPUT);
-    pinMode(colorSens2, INPUT);
     Serial.begin(115200);
 
     move.setup();
     followLine.setup();
+    sonic1.setup();
+    sonic2.setup();
 
     
-
     xTaskCreatePinnedToCore(
         Task1code,
         "Task1",
@@ -52,7 +54,9 @@ void setup() {
 void Task1code(void * parameter) {
     for (;;) {
         followLine.findDeraction();
-        Serial.print(", "+String(analogRead(colorSens1))+ " "+String(analogRead(colorSens2)));
+        sonic1.distanceCheck();
+        sonic2.distanceCheck();
+        Serial.println("Front: "+String(sonic1.getDistanceMM())+" Left side: "+String(sonic2.getDistanceMM()));
         vTaskDelay(1); //  очень желательно
     }
 }   
