@@ -27,6 +27,7 @@ extern const uint8_t echoL;
 //robot porameters
 extern uint8_t speed;
 extern uint8_t rotationPawer; //отнасительноя разнеца в градусах для поворота.
+extern uint8_t avoidancePower;
 enum motorProportions : uint8_t {propLeft, propRight}; //отнасительноя разнеца в скоростях мотора.
 
 //QTR-A8 calibration val;

@@ -10,7 +10,7 @@ enum rotations : short{
 };
 
 class FollowLine{
-    private:
+    protected:
     int _deraction;
     uint16_t _linePosition;
     Move *_move;

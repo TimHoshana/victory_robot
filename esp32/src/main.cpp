@@ -16,8 +16,8 @@ FollowLine followLine(&move, Qtr);
 TaskHandle_t Task1;
 TaskHandle_t Task2;
 
-Ultrasonic sonic1(trigF, echoF); 
-Ultrasonic sonic2(trigL, echoL); 
+Ultrasonic sonicF(trigF, echoF); 
+Ultrasonic sonicL(trigL, echoL); 
 
 
 
@@ -26,8 +26,8 @@ void setup() {
 
     move.setup();
     followLine.setup();
-    sonic1.setup();
-    sonic2.setup();
+    sonicF.setup();
+    sonicL.setup();
 
     
     xTaskCreatePinnedToCore(
@@ -54,8 +54,8 @@ void setup() {
 void Task1code(void * parameter) {
     for (;;) {
         followLine.findDeraction();
-        sonic1.distanceCheck();
-        sonic2.distanceCheck();
+        sonicF.distanceCheck();
+        sonicL.distanceCheck();
         followLine.printData();
         vTaskDelay(1); //  очень желательно
     }
@@ -63,8 +63,10 @@ void Task1code(void * parameter) {
 
 void Task2code(void *parameter) {
     for (;;) {
-        
-        followLine.follow(140);
+        if (sonicF.getDistanceMM() > 350)
+            followLine.follow(50);
+        else
+            followLine.follow(0);
         vTaskDelay(1); //  очень желательно
 
     }
