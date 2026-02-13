@@ -26,6 +26,7 @@ void setup() {
 
     move.setup();
     followLine.setup();
+    obsticale.setup();
 
     
     xTaskCreatePinnedToCore(
@@ -51,8 +52,10 @@ void setup() {
 
 void Task1code(void * parameter) {
     for (;;) {
-        if(obsticale.obstacleDietacted())
+        if(!obsticale.obstacleDietacted()){
           followLine.findDeraction();
+          obsticale.distanceCheck();
+        }
         else
           obsticale.findDeraction();
         vTaskDelay(1); //  очень желательно
@@ -61,10 +64,9 @@ void Task1code(void * parameter) {
 
 void Task2code(void *parameter) {
     for (;;) {
-        if(obsticale.obstacleDietacted())
+        if(!obsticale.obstacleDietacted())
           followLine.follow(90);
-        else
-          obsticale.obstaceAvoidance(90);
+        obsticale.obstaceAvoidance(90);
         vTaskDelay(1); //  очень желательно
 
     }

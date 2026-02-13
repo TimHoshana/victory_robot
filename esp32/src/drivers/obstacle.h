@@ -13,7 +13,9 @@ class Obstacle : public FollowLine{
     stages stage = checkout;
     public:
     Obstacle(Move *move, QTR *qtr);
+    
     void setup();
+    void distanceCheck();
     void findDeraction();
     bool obstacleDietacted();
     void obstaceAvoidance(short speed);

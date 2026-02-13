@@ -20,8 +20,8 @@ const uint8_t colorSens2 = 34;
 const uint8_t trigF = 2;
 const uint8_t echoF = 4;
 //Left
-const uint8_t trigL = 15;
-const uint8_t echoL = 21;
+const uint8_t trigL = 21;
+const uint8_t echoL = 15;
 
 
 //robot porameters

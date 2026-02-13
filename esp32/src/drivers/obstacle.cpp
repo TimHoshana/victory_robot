@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "obstacle.h"
+#include "configs.h"
 
 Obstacle::Obstacle(Move *move, QTR *qtr) : FollowLine(move, qtr){
 }
@@ -16,18 +17,23 @@ void Obstacle::findDeraction(){
     sonicF->distanceCheck();
     sonicL->distanceCheck();
 }
+void Obstacle::distanceCheck(){
+    sonicF->distanceCheck();
+    sonicL->distanceCheck();
+}
 
 
 void Obstacle::obstaceAvoidance(short _speed){
+    short dir = ((800-(sonicL->getDistanceMM()))/3);
     switch (stage)
     {
         case(checkout):
-            if (sonicF->getDistanceMM() < 350)
+            if (sonicF->getDistanceMM() < 500)
               stage = gotoPosition;
             break;
         
         case(gotoPosition):
-            if(sonicL->getDistanceMM() > 270  && sonicL->getDistanceMM() < 390){
+            if(sonicL->getDistanceMM() > 200  && sonicL->getDistanceMM() < 840){
               stage = detour;
               break;
             }
@@ -36,15 +42,21 @@ void Obstacle::obstaceAvoidance(short _speed){
             break;
         
         case(detour):
-            if(!lineThickness){
+            if(lineThickness>3){
               stage = lineBack;
               break;
             }
-            _move->follow(speed, 350-sonicL->getDistanceMM());
+            _move->follow(speed, (dir < -90 ? -90 : dir));
             break;
+
         case(lineBack):
             if (sonicL->getDistanceMM() > 800)
               stage = checkout;
-            _move->follow(_speed, _deraction);
+            _move->follow(_speed, abs(_deraction));
     }
-}
+    
+    Serial.print("Front "+String(sonicF->getDistanceMM()));
+    Serial.print(" Left "+String(sonicL->getDistanceMM()));
+    Serial.println("   "+ String(dir < -90 ? -90 : dir)+" "+String(stage)+"    ");
+    
+} 
