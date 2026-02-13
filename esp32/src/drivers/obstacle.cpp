@@ -1,13 +1,23 @@
 #include <Arduino.h>
 #include "obstacle.h"
 
+Obstacle::Obstacle(Move *move, QTR *qtr) : FollowLine(move, qtr){
+}
+
 void Obstacle::setup(){
         sonicF->setup();
         sonicL->setup();
 }
-bool Obstacle::obtacleDietacted(){
+bool Obstacle::obstacleDietacted(){
         return stage != checkout;
 }
+void Obstacle::findDeraction(){
+    FollowLine::findDeraction();
+    sonicF->distanceCheck();
+    sonicL->distanceCheck();
+}
+
+
 void Obstacle::obstaceAvoidance(short _speed){
     switch (stage)
     {
@@ -17,7 +27,7 @@ void Obstacle::obstaceAvoidance(short _speed){
             break;
         
         case(gotoPosition):
-            if(sonicL->getDistanceMM() > 2700  && sonicL->getDistanceMM() < 3900){
+            if(sonicL->getDistanceMM() > 270  && sonicL->getDistanceMM() < 390){
               stage = detour;
               break;
             }

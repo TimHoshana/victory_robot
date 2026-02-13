@@ -1,3 +1,4 @@
+#pragma once
 #include <Arduino.h>
 #include "followLine.h"
 #include "sensorse/Ultrasonic.h"
@@ -11,7 +12,9 @@ class Obstacle : public FollowLine{
     Ultrasonic *sonicL = new Ultrasonic(trigL, echoL); 
     stages stage = checkout;
     public:
+    Obstacle(Move *move, QTR *qtr);
     void setup();
-    bool obtacleDietacted();
+    void findDeraction();
+    bool obstacleDietacted();
     void obstaceAvoidance(short speed);
 };

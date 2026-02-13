@@ -4,6 +4,7 @@
 #include "drivers/move.h"
 #include "drivers/followLine.h"
 #include "sensorse/Ultrasonic.h"
+#include "drivers/obstacle.h"
 
 // 🔹 ПРОТОТИПЫ ЗАДАЧ
 void Task1code(void * parameter);
@@ -11,13 +12,12 @@ void Task2code(void * parameter);
 
 Move move;
 QTR *Qtr = new QTR(qtrSensor, qrtMax, qrtMin, qtrLed);
+
 FollowLine followLine(&move, Qtr);
+Obstacle obsticale(&move, Qtr);
 
 TaskHandle_t Task1;
 TaskHandle_t Task2;
-
-Ultrasonic sonicF(trigF, echoF); 
-Ultrasonic sonicL(trigL, echoL); 
 
 
 
@@ -26,8 +26,6 @@ void setup() {
 
     move.setup();
     followLine.setup();
-    sonicF.setup();
-    sonicL.setup();
 
     
     xTaskCreatePinnedToCore(
@@ -53,20 +51,20 @@ void setup() {
 
 void Task1code(void * parameter) {
     for (;;) {
-        followLine.findDeraction();
-        sonicF.distanceCheck();
-        sonicL.distanceCheck();
-        followLine.printData();
+        if(obsticale.obstacleDietacted())
+          followLine.findDeraction();
+        else
+          obsticale.findDeraction();
         vTaskDelay(1); //  очень желательно
     }
 }   
 
 void Task2code(void *parameter) {
     for (;;) {
-        if (sonicF.getDistanceMM() > 350)
-            followLine.follow(50);
+        if(obsticale.obstacleDietacted())
+          followLine.follow(90);
         else
-            followLine.follow(0);
+          obsticale.obstaceAvoidance(90);
         vTaskDelay(1); //  очень желательно
 
     }
