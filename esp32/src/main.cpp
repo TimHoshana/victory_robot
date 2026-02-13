@@ -64,7 +64,7 @@ void Task1code(void * parameter) {
 void Task2code(void *parameter) {
     for (;;) {
         
-        followLine.follow(90);
+        followLine.follow(140);
         vTaskDelay(1); //  очень желательно
 
     }
