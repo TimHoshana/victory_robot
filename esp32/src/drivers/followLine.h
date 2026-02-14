@@ -6,8 +6,8 @@
 
 enum rotations : short{
     forword = 0,
-    left = 255,
-    right = -255
+    left = 200,
+    right = -200
 };
 
 class FollowLine{

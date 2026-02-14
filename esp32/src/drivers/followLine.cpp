@@ -16,10 +16,10 @@ void FollowLine::shiftCheck(bool Pos[8]){
         if(false){
             Shift = forword;
         }
-        else if (shiftLeft > shiftRight)
+        else if (Pos[0])
         {
             Shift = left;
-        } else
+        } else if (Pos[7])
         {
             Shift = right;
         } 

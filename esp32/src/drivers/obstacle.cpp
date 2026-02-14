@@ -24,7 +24,7 @@ void Obstacle::distanceCheck(){
 
 
 void Obstacle::obstaceAvoidance(short _speed){
-    short dir = ((800-(sonicL->getDistanceMM()))/5);
+    short dir = ((800-(sonicL->getDistanceMM()))/4);
     switch (stage)
     {
         case(checkout):
@@ -33,7 +33,7 @@ void Obstacle::obstaceAvoidance(short _speed){
             break;
         
         case(gotoPosition):
-            if(sonicL->getDistanceMM() > 200  && sonicL->getDistanceMM() < 840){
+            if(sonicL->getDistanceMM() > 200  && sonicL->getDistanceMM() < 900){
               stage = detour;
               break;
             }
@@ -50,9 +50,9 @@ void Obstacle::obstaceAvoidance(short _speed){
             break;
 
         case(lineBack): 
-            if (sonicL->getDistanceMM() > 800)
+            if (lineThickness < 3 || !lineThickness)
               stage = checkout;
-            _move->follow(_speed, abs(_deraction));
+            _move->follow(_speed, 170);
     }
     
     
