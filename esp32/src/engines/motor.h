@@ -23,7 +23,7 @@ public:
 
     void Go(int val) {
         
-        val =  map(val, 255, -255, 150, -150)+(val>0 ? 1 : -1)*75;
+        val =  map(val, 255, -255, 180, -180)+(val>0 ? 1 : -1)*75;
 
         if (val > 0) {
             ledcWrite(channel1, 0);

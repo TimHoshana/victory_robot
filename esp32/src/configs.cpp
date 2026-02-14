@@ -26,7 +26,7 @@ const uint8_t echoL = 15;
 
 //robot porameters
 uint8_t speed = 250; //отнасительноя разнеца в градусах для поворота.
-uint8_t rotationPawer = 24; //отнасительноя разнеца в градусах для поворота.
+uint8_t rotationPawer = 28; //отнасительноя разнеца в градусах для поворота.
 uint8_t aviodancePower = 1;
 
 // QTR calibration

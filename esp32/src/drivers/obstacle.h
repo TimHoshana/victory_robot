@@ -19,4 +19,5 @@ class Obstacle : public FollowLine{
     void findDeraction();
     bool obstacleDietacted();
     void obstaceAvoidance(short speed);
+    void printSonicData();
 };

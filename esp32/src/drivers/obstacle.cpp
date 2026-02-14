@@ -24,7 +24,7 @@ void Obstacle::distanceCheck(){
 
 
 void Obstacle::obstaceAvoidance(short _speed){
-    short dir = ((800-(sonicL->getDistanceMM()))/3);
+    short dir = ((800-(sonicL->getDistanceMM()))/5);
     switch (stage)
     {
         case(checkout):
@@ -46,17 +46,20 @@ void Obstacle::obstaceAvoidance(short _speed){
               stage = lineBack;
               break;
             }
-            _move->follow(speed, (dir < -90 ? -90 : dir));
+            _move->follow(_speed, (dir < -90 ? -90 : dir));
             break;
 
-        case(lineBack):
+        case(lineBack): 
             if (sonicL->getDistanceMM() > 800)
               stage = checkout;
             _move->follow(_speed, abs(_deraction));
     }
     
+    
+}
+void Obstacle::printSonicData(){
     Serial.print("Front "+String(sonicF->getDistanceMM()));
     Serial.print(" Left "+String(sonicL->getDistanceMM()));
-    Serial.println("   "+ String(dir < -90 ? -90 : dir)+" "+String(stage)+"    ");
-    
-} 
+    Serial.println();
+    //Serial.println("   "+ String(dir < -90 ? -90 : dir)+" "+String(stage)+"    ");
+}

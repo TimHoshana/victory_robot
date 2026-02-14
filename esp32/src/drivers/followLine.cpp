@@ -11,12 +11,12 @@ void FollowLine::setup(){
     _qtr->setup();
 }
 
-void FollowLine::shiftCheck(){
+void FollowLine::shiftCheck(bool Pos[8]){
     if (lineThickness != 0){
-        if(shiLeft <  2 && shiRight < 2){
+        if(false){
             Shift = forword;
         }
-        else if (shiLeft > shiRight)
+        else if (shiftLeft > shiftRight)
         {
             Shift = left;
         } else
@@ -53,6 +53,11 @@ void FollowLine::findDeraction(){
     }
     for (uint8_t i = 0; i < 4; i++)
     {
+        shiftLeft += (linPosetion[3-i]);
+        shiftRight += (linPosetion[4+i]);
+    }
+    for (uint8_t i = 0; i < 4; i++)
+    {
         if (linPosetion[3-i])
         {
             shiLeft = i+1;
@@ -67,7 +72,7 @@ void FollowLine::findDeraction(){
             break;
         }
     }
-    shiftCheck();
+    shiftCheck(linPosetion);
     int shiftDeraction = (shiLeft - shiRight);
     _deraction = shiftDeraction*rotationPawer;
     //_deraction = lineThickness < 3 ? (shiLeft- shiRight)*25 : (shiftLeft - shiftRight)*25;

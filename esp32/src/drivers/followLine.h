@@ -22,8 +22,9 @@ class FollowLine{
     uint8_t shiLeft;
     uint8_t shiRight;
     uint8_t lineThickness;
+    
 
-    void shiftCheck();
+    void shiftCheck(bool Pos[8]);
     
     public:
     rotations Shift;
