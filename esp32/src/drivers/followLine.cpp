@@ -26,7 +26,7 @@ void FollowLine::shiftCheck(bool Pos[8]){
     {
         if (!timeStraight)
         {
-            timeStraight = millis() + 400;
+            timeStraight = millis() + rotationDelay;
         }
         else if (millis() > timeStraight)
         {

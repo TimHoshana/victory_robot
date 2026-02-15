@@ -18,6 +18,6 @@ class Obstacle : public FollowLine{
     void distanceCheck();
     void findDeraction();
     bool obstacleDietacted();
-    void obstaceAvoidance(short speed);
+    void obstaceAvoidance(short _speed, uint16_t _stopDistance = stopDistance, uint16_t _rotationRadius = rotationRadius);
     void printSonicData();
 };

@@ -26,8 +26,13 @@ const uint8_t echoF = 15;
 
 //robot porameters
 uint8_t speed = 250; //отнасительноя разнеца в градусах для поворота.
+
+//follow line
 uint8_t rotationPawer = 18; //отнасительноя разнеца в градусах для поворота.
-uint8_t aviodancePower = 1;
+const uint16_t rotationDelay =  400; //задержка для поворота;
+
+const uint16_t stopDistance = 500; //In millimeters. дистанция для остановки перед препятствием
+const uint16_t rotationRadius = 900; //In millimeters. радиус поворота робота
 
 // QTR calibration
 uint16_t qrtMax[8] = {233, 1023, 1023, 705, 894, 625, 945, 187};

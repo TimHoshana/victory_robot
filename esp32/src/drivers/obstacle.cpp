@@ -22,17 +22,17 @@ void Obstacle::distanceCheck(){
 }
 
 
-void Obstacle::obstaceAvoidance(short _speed){
+void Obstacle::obstaceAvoidance(short _speed, uint16_t _stopDistance, uint16_t _rotationRadius) {
     short dir = ((800-(sonicL->getDistanceMM()))/4);
     switch (stage)
     {
         case(checkout):
-            if (sonicF->getDistanceMM() < 500)
+            if (sonicF->getDistanceMM() < _stopDistance)
               stage = gotoPosition;
             break;
         
         case(gotoPosition):
-            if(sonicL->getDistanceMM() > 200  && sonicL->getDistanceMM() < 900){
+            if(sonicL->getDistanceMM() > 200  && sonicL->getDistanceMM() < _rotationRadius){
               stage = detour;
               break;
             }
