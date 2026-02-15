@@ -12,17 +12,26 @@ void FollowLine::setup(){
 }
 
 void FollowLine::shiftCheck(bool Pos[8]){
-    if (lineThickness != 0){
-        if(false){
+    static uint32_t timeStraight = 0;
+    if (Pos[0])
+    {
+        Shift = left;
+        timeStraight = 0;
+    } else if (Pos[7])
+    {
+        Shift = right;
+        timeStraight = 0;
+    }
+    else if ((Pos[3] || Pos[4]))
+    {
+        if (!timeStraight)
+        {
+            timeStraight = millis() + 400;
+        }
+        else if (millis() > timeStraight)
+        {
             Shift = forword;
         }
-        else if (Pos[0])
-        {
-            Shift = left;
-        } else if (Pos[7])
-        {
-            Shift = right;
-        } 
     }
 }
 

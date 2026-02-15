@@ -19,7 +19,6 @@ void Obstacle::findDeraction(){
 }
 void Obstacle::distanceCheck(){
     sonicF->distanceCheck();
-    sonicL->distanceCheck();
 }
 
 

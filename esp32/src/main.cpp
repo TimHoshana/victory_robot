@@ -54,11 +54,11 @@ void Task1code(void * parameter) {
     for (;;) {
         if(!obsticale.obstacleDietacted()){
           followLine.findDeraction();
-          obsticale.distanceCheck();
         }
         else
           obsticale.findDeraction();
-        obsticale.printSonicData();
+        obsticale.distanceCheck();
+        followLine.printData();
         vTaskDelay(1); //  очень желательно
     }
 }   
@@ -66,8 +66,8 @@ void Task1code(void * parameter) {
 void Task2code(void *parameter) {
     for (;;) {
         if(!obsticale.obstacleDietacted())
-          followLine.follow(100);
-        obsticale.obstaceAvoidance(90);
+          followLine.follow(30);
+        obsticale.obstaceAvoidance(30);
         vTaskDelay(1); //  очень желательно
 
     }
