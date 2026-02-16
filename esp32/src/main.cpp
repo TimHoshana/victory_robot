@@ -58,7 +58,8 @@ void Task1code(void * parameter) {
         else
           obsticale.findDeraction();
         obsticale.distanceCheck();
-        followLine.printData();
+        //followLine.printData();
+        obsticale.printSonicData();
         vTaskDelay(1); //  очень желательно
     }
 }   
@@ -66,8 +67,8 @@ void Task1code(void * parameter) {
 void Task2code(void *parameter) {
     for (;;) {
         if(!obsticale.obstacleDietacted())
-          followLine.follow(30);
-        obsticale.obstaceAvoidance(30);
+          followLine.follow(255);
+        obsticale.obstaceAvoidance(255);
         vTaskDelay(1); //  очень желательно
 
     }

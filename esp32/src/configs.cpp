@@ -25,7 +25,7 @@ const uint8_t echoF = 15;
 
 
 //robot porameters
-uint8_t speed = 250; //отнасительноя разнеца в градусах для поворота.
+uint8_t speed = 2505; //отнасительноя разнеца в градусах для поворота.
 
 //follow line
 uint8_t rotationPawer = 18; //отнасительноя разнеца в градусах для поворота.
