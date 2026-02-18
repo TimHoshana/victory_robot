@@ -1,10 +1,13 @@
 #include <Arduino.h>
+#include <Wire.h>
 #include "configs.h"
 #include "engines/motor.h"
 #include "drivers/move.h"
 #include "drivers/followLine.h"
 #include "sensorse/Ultrasonic.h"
 #include "drivers/obstacle.h"
+
+#define NANO_ADDR 0x04
 
 // 🔹 ПРОТОТИПЫ ЗАДАЧ
 void Task1code(void * parameter);
@@ -27,8 +30,14 @@ void setup() {
     move.setup();
     followLine.setup();
     obsticale.setup();
-
+    // Инициализация I2C на ESP32 (SDA, SCL)
+    // По умолчанию SDA - 21, SCL - 22. Можно изменить: Wire.begin(SDA_PIN, SCL_PIN);
+    Wire.begin(); 
+    Wire.setClock(400000); 
     
+    Serial.println("I2C Master Ready. Reading from Nano...");
+
+
     xTaskCreatePinnedToCore(
         Task1code,
         "Task1",
@@ -59,7 +68,26 @@ void Task1code(void * parameter) {
           obsticale.findDeraction();
         obsticale.distanceCheck();
         //followLine.printData();
-        obsticale.printSonicData();
+
+
+        static unsigned long lastUpdate = 0;
+        const long interval = 20; // Опрос каждые 20 мс (50 раз в секунду)
+        
+        if (millis() - lastUpdate >= interval) {
+          lastUpdate = millis();
+        
+          // Запрашиваем 3 байта у Nano
+          Wire.requestFrom(NANO_ADDR, 3);
+        
+          if (Wire.available() == 3) {
+            uint8_t r = Wire.read();
+            uint8_t g = Wire.read();
+            uint8_t b = Wire.read();
+        
+            Serial.println(r == 0 ? "White" : r==1 ? "Blech" : r== 3 ? "Red" : "Green");
+          }
+        }
+  // Здесь ESP32 может делать другую работу, цикл не заблокирован!
         vTaskDelay(1); //  очень желательно
     }
 }   
