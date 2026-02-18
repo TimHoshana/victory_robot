@@ -23,7 +23,6 @@ void QTR::lineDetaction(){
   {
       _linePosition[i] = map(sensorValues[i], 0, 4095, 0, 255);
   }
-  Serial.println();
 }
 
 void QTR::calibration(){

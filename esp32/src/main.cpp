@@ -11,8 +11,9 @@
 void Task1code(void * parameter);
 void Task2code(void * parameter);
 
-const uint8_t NANO_RIGHT_ADDR = 0x04;
-const uint8_t NANO_LEFT_ADDR = 0x05;
+
+const uint8_t NANO_RIGHT_ADDR = 0x05;
+const uint8_t NANO_LEFT_ADDR = 0x04;
 
 Move move;
 QTR *Qtr = new QTR(qtrSensor, qrtMax, qrtMin, qtrLed);
@@ -24,8 +25,12 @@ TaskHandle_t Task1;
 TaskHandle_t Task2;
 
 
+uint8_t rightColor = 0;
+uint8_t leftColor = 0;
 
-void colorCheck(uint8_t ADRESS){
+
+
+void colorCheck(uint8_t ADRESS, uint8_t &color){
     static unsigned long lastUpdate = 0;
     const long interval = 20; // Опрос каждые 20 мс (50 раз в секунду)
     
@@ -36,11 +41,10 @@ void colorCheck(uint8_t ADRESS){
       Wire.requestFrom((uint8_t)ADRESS, 3);
     
       if (Wire.available() == 3) {
-        uint8_t r = Wire.read();
+        color = Wire.read();
         uint8_t g = Wire.read();
         uint8_t b = Wire.read();
-    
-        Serial.print(r == 0 ? "White" : r==1 ? "Blech" : r== 3 ? "Red" : "Green");
+        
       }
     }
 }
@@ -84,6 +88,7 @@ void setup() {
 }
 
 void Task1code(void * parameter) {
+    static bool turn;
     for (;;) {
         if(!obsticale.obstacleDietacted()){
           followLine.findDeraction();
@@ -94,8 +99,19 @@ void Task1code(void * parameter) {
         //followLine.printData();
 
 
-        colorCheck(NANO_RIGHT_ADDR);
-        colorCheck(NANO_LEFT_ADDR);
+        if(turn){
+            colorCheck(NANO_LEFT_ADDR, leftColor);
+            turn = false;
+        }
+        else{
+            colorCheck(NANO_RIGHT_ADDR, rightColor);
+            turn = true;
+        }
+        Serial.print("Right: ");
+        Serial.print(rightColor == 0 ? "White" : rightColor==1 ? "Blue" : rightColor== 3 ? "Red" : "Green");
+        Serial.print(" Left: ");
+        Serial.print(leftColor == 0 ? "White" : leftColor==1 ? "Blue" : leftColor== 3 ? "Red" : "Green");
+        Serial.println();
   // Здесь ESP32 может делать другую работу, цикл не заблокирован!
         vTaskDelay(1); //  очень желательно
     }
