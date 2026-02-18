@@ -7,11 +7,12 @@
 #include "sensorse/Ultrasonic.h"
 #include "drivers/obstacle.h"
 
-#define NANO_ADDR 0x04
-
 // 🔹 ПРОТОТИПЫ ЗАДАЧ
 void Task1code(void * parameter);
 void Task2code(void * parameter);
+
+const uint8_t NANO_RIGHT_ADDR = 0x04;
+const uint8_t NANO_LEFT_ADDR = 0x05;
 
 Move move;
 QTR *Qtr = new QTR(qtrSensor, qrtMax, qrtMin, qtrLed);
@@ -21,6 +22,29 @@ Obstacle obsticale(&move, Qtr);
 
 TaskHandle_t Task1;
 TaskHandle_t Task2;
+
+
+
+void colorCheck(uint8_t ADRESS){
+    static unsigned long lastUpdate = 0;
+    const long interval = 20; // Опрос каждые 20 мс (50 раз в секунду)
+    
+    if (millis() - lastUpdate >= interval) {
+      lastUpdate = millis();
+    
+      // Запрашиваем 3 байта у Nano
+      Wire.requestFrom((uint8_t)ADRESS, 3);
+    
+      if (Wire.available() == 3) {
+        uint8_t r = Wire.read();
+        uint8_t g = Wire.read();
+        uint8_t b = Wire.read();
+    
+        Serial.print(r == 0 ? "White" : r==1 ? "Blech" : r== 3 ? "Red" : "Green");
+      }
+    }
+}
+
 
 
 
@@ -70,23 +94,8 @@ void Task1code(void * parameter) {
         //followLine.printData();
 
 
-        static unsigned long lastUpdate = 0;
-        const long interval = 20; // Опрос каждые 20 мс (50 раз в секунду)
-        
-        if (millis() - lastUpdate >= interval) {
-          lastUpdate = millis();
-        
-          // Запрашиваем 3 байта у Nano
-          Wire.requestFrom(NANO_ADDR, 3);
-        
-          if (Wire.available() == 3) {
-            uint8_t r = Wire.read();
-            uint8_t g = Wire.read();
-            uint8_t b = Wire.read();
-        
-            Serial.println(r == 0 ? "White" : r==1 ? "Blech" : r== 3 ? "Red" : "Green");
-          }
-        }
+        colorCheck(NANO_RIGHT_ADDR);
+        colorCheck(NANO_LEFT_ADDR);
   // Здесь ESP32 может делать другую работу, цикл не заблокирован!
         vTaskDelay(1); //  очень желательно
     }
