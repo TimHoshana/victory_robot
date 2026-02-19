@@ -23,6 +23,10 @@ const uint8_t echoL = 4;
 const uint8_t trigF = 16;
 const uint8_t echoF = 15;
 
+// I2C addresses for color sensors
+const uint8_t NANO_RIGHT_ADDR = 0x05;
+const uint8_t NANO_LEFT_ADDR = 0x04;
+
 
 //robot porameters
 uint8_t speed = 255; //отнасительноя разнеца в градусах для поворота.
@@ -31,8 +35,10 @@ uint8_t speed = 255; //отнасительноя разнеца в градус
 uint8_t rotationPawer = 18; //отнасительноя разнеца в градусах для поворота.
 const uint16_t rotationDelay =  400; //задержка для поворота;
 
+//obstacle
 const uint16_t stopDistance = 500; //In millimeters. дистанция для остановки перед препятствием
-const uint16_t rotationRadius = 900; //In millimeters. радиус поворота робота
+const uint16_t stopInterval = 900; //In millimeters. интервал для остановки перед препятствием
+const uint16_t rotationRadius = 800; //In millimeters. радиус поворота робота
 
 // QTR calibration
 uint16_t qrtMax[8] = {233, 1023, 1023, 705, 894, 625, 945, 187};

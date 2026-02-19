@@ -24,6 +24,11 @@ extern const uint8_t echoF;
 extern const uint8_t trigL;
 extern const uint8_t echoL;
 
+// I2C addresses for color sensors
+extern const uint8_t NANO_RIGHT_ADDR;
+extern const uint8_t NANO_LEFT_ADDR;
+
+
 //robot porameters
 extern uint8_t speed;
 
@@ -31,6 +36,7 @@ extern uint8_t rotationPawer; //отнасительноя разнеца в г�
 extern const uint16_t rotationDelay; //In milliseconds. задержка для поворота;
 
 extern const uint16_t stopDistance; //In millimeters. дистанция для остановки перед препятствием
+extern const uint16_t stopInterval; //In millimeters. интервал для остановки перед препятствием
 extern const uint16_t rotationRadius; //In millimeters. радиус поворота робота
 
 

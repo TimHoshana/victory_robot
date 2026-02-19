@@ -11,10 +11,6 @@
 void Task1code(void * parameter);
 void Task2code(void * parameter);
 
-
-const uint8_t NANO_RIGHT_ADDR = 0x05;
-const uint8_t NANO_LEFT_ADDR = 0x04;
-
 Move move;
 QTR *Qtr = new QTR(qtrSensor, qrtMax, qrtMin, qtrLed);
 
