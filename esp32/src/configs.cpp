@@ -1,5 +1,7 @@
 #include "configs.h"
 
+//PINS CONNECTIONS
+
 // QTR
 const uint8_t qtrSensor[8] = {12, 14, 27, 26, 25, 33, 32, 13};//pins for QRT sensors
 const uint8_t qtrLed = 23;//pin for QRT led emitter
@@ -28,7 +30,7 @@ const uint8_t NANO_RIGHT_ADDR = 0x05;
 const uint8_t NANO_LEFT_ADDR = 0x04;
 
 
-//robot porameters
+//ROBBOT PORAMETORS
 uint8_t speed = 255; //отнасительноя разнеца в градусах для поворота.
 
 //follow line
