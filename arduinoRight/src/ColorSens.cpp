@@ -2,8 +2,8 @@
 
 
 
-ColorSens::ColorSens(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t out) {
-      S0 = s0; S1 = s1; S2 = s2; S3 = s3; sensorOut = out;
+ColorSens::ColorSens(uint8_t s0, uint8_t s1, uint8_t s2, uint8_t s3, uint8_t out, uint8_t ledPin) {
+      S0 = s0; S1 = s1; S2 = s2; S3 = s3; sensorOut = out; ledPin_ = ledPin;
 }
 
 void ColorSens::contrastCheck(){
@@ -21,8 +21,8 @@ void ColorSens::contrastCheck(){
 }
 
 color ColorSens::colorCheck(){
-  if(contrast < 40){
-    if(Colors[0] > 128){
+  if(contrast < contrastMax){
+    if(Colors[0] > brightness){
       return white;
     } else{
       return bleck;
@@ -70,24 +70,24 @@ void ColorSens::readData() {
 void ColorSens::printData() {
   Serial.print("R = "); Serial.print(redColor);
   Serial.print(" G = "); Serial.print(greenColor);
-  Serial.print(" Contrast = " + String(colorCheck()));
+  Serial.print(" Contrast = " + String(contrast));
 
-  if(contrast < 40){
-    if(Colors[0] > 128){
+  if(contrast < contrastMax){
+    if(Colors[0] > brightness){
       Serial.println(" - White detected!");
-      digitalWrite(10, LOW);
+      digitalWrite(ledPin_, HIGH);
     } else{
       Serial.println(" - Bleck detected");
-      digitalWrite(10, LOW);
+      digitalWrite(ledPin_, HIGH);
     }
   }
   else{
     if(maxColor ==  0){
       Serial.println(" - RED detected!");
-      digitalWrite(10, HIGH);}
+      digitalWrite(ledPin_, LOW);}
     else{
       Serial.println(" - GREEN detected!");
-      digitalWrite(10, HIGH);}
+      digitalWrite(ledPin_, LOW);}
   }
 }
 

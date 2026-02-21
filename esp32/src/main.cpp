@@ -34,12 +34,10 @@ void colorCheck(uint8_t ADRESS, uint8_t &color){
       lastUpdate = millis();
     
       // Запрашиваем 3 байта у Nano
-      Wire.requestFrom((uint8_t)ADRESS, 3);
+      Wire.requestFrom((uint8_t)ADRESS, 1);
     
-      if (Wire.available() == 3) {
+      if (Wire.available() == 1) {
         color = Wire.read();
-        uint8_t g = Wire.read();
-        uint8_t b = Wire.read();
         
       }
     }
@@ -104,10 +102,11 @@ void Task1code(void * parameter) {
             turn = true;
         }
         Serial.print("Right: ");
-        Serial.print(rightColor == 0 ? "White" : rightColor==1 ? "Blue" : rightColor== 3 ? "Red" : "Green");
+        Serial.print(rightColor == 0 ? "White" : rightColor==1 ? "Black" : rightColor== 3 ? "Red" : "Green");
         Serial.print(" Left: ");
-        Serial.print(leftColor == 0 ? "White" : leftColor==1 ? "Blue" : leftColor== 3 ? "Red" : "Green");
-        Serial.println();
+        Serial.print(leftColor == 0 ? "White " : leftColor==1 ? "Black " : leftColor== 3 ? "Red" : "Green ");
+        //Serial.println();
+        followLine.printData();
   // Здесь ESP32 может делать другую работу, цикл не заблокирован!
         vTaskDelay(1); //  очень желательно
     }

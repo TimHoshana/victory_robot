@@ -75,19 +75,19 @@ void ColorSens::printData() {
   if(contrast < 40){
     if(Colors[0] > 128){
       Serial.println(" - White detected!");
-      digitalWrite(10, LOW);
+      digitalWrite(9, LOW);
     } else{
       Serial.println(" - Bleck detected");
-      digitalWrite(10, LOW);
+      digitalWrite(9, LOW);
     }
   }
   else{
     if(maxColor ==  0){
       Serial.println(" - RED detected!");
-      digitalWrite(10, HIGH);}
+      digitalWrite(9, HIGH);}
     else{
       Serial.println(" - GREEN detected!");
-      digitalWrite(10, HIGH);}
+      digitalWrite(9, HIGH);}
   }
 }
 

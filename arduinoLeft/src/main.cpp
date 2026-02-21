@@ -15,7 +15,7 @@ void requestEvent() {
 
 void setup() {
   Serial.begin(115200);
-  pinMode(10, OUTPUT);
+  pinMode(9, OUTPUT);
   colorSens1.begin();
   
   // Инициализация I2C (Адрес 0x08)
@@ -33,8 +33,8 @@ void loop() {
   // В твоем классе переменные private, поэтому я предполагаю, что ты добавил геттеры или сделал их public)
   // Для примера запишем их в массив:
   rgbValues[0] = colorSens1.colorCheck();
-  rgbValues[1] = colorSens1.getGreen(); // Добавь в класс метод getGreen() { return greenColor; }
-  rgbValues[2] = colorSens1.getBlue();  // Добавь в класс метод getBlue() { return blueColor; }
+  rgbValues[1] = 1; // Добавь в класс метод getGreen() { return greenColor; }
+  rgbValues[2] = 1;  // Добавь в класс метод getBlue() { return blueColor; }
 
   colorSens1.printData();
 }
