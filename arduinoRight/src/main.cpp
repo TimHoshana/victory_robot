@@ -1,11 +1,12 @@
 #include <Wire.h>
 #include "ColorSens.h"
+#include "configs.h"
 
 const uint8_t LED_PIN = 9; // Пин для индикации работы (можешь использовать любой другой)
 
 
 // Пины датчика
-ColorSens colorSens1(4, 5, 6, 7, 8, LED_PIN);
+ColorSens colorSens1(S0, S1, S2, S3, sensorOut, LED_PIN);
 
 // Массив для хранения RGB (3 байта)
 byte rgbValues[3];
@@ -23,7 +24,7 @@ void setup() {
 
   
   // Инициализация I2C (Адрес 0x08)
-  Wire.begin(0x04); 
+  Wire.begin(ADDRESS); 
   // Регистрация функции отправки данных
   Wire.onRequest(requestEvent); 
 }

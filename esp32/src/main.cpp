@@ -6,6 +6,7 @@
 #include "drivers/followLine.h"
 #include "sensorse/Ultrasonic.h"
 #include "drivers/obstacle.h"
+#include "sensorse/colorReceiving.h"
 
 // 🔹 ПРОТОТИПЫ ЗАДАЧ
 void Task1code(void * parameter);
@@ -25,23 +26,6 @@ uint8_t rightColor = 0;
 uint8_t leftColor = 0;
 
 
-
-void colorCheck(uint8_t ADRESS, uint8_t &color){
-    static unsigned long lastUpdate = 0;
-    const long interval = 20; // Опрос каждые 20 мс (50 раз в секунду)
-    
-    if (millis() - lastUpdate >= interval) {
-      lastUpdate = millis();
-    
-      // Запрашиваем 3 байта у Nano
-      Wire.requestFrom((uint8_t)ADRESS, 1);
-    
-      if (Wire.available() == 1) {
-        color = Wire.read();
-        
-      }
-    }
-}
 
 
 
@@ -94,17 +78,16 @@ void Task1code(void * parameter) {
 
 
         if(turn){
-            colorCheck(NANO_LEFT_ADDR, leftColor);
+            colorCheck(NANO_LEFT_ADDR, rightColor);
             turn = false;
         }
         else{
-            colorCheck(NANO_RIGHT_ADDR, rightColor);
+            colorCheck(NANO_RIGHT_ADDR, leftColor);
             turn = true;
-        }
-        Serial.print("Right: ");
-        Serial.print(rightColor == 0 ? "White" : rightColor==1 ? "Black" : rightColor== 3 ? "Red" : "Green");
-        Serial.print(" Left: ");
+        } 
         Serial.print(leftColor == 0 ? "White " : leftColor==1 ? "Black " : leftColor== 3 ? "Red" : "Green ");
+        Serial.print(" Left: ");
+        Serial.print(rightColor == 0 ? "White" : rightColor==1 ? "Black " : rightColor== 3 ? "Red" : "Green ");
         //Serial.println();
         followLine.printData();
   // Здесь ESP32 может делать другую работу, цикл не заблокирован!
