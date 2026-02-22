@@ -34,4 +34,6 @@ class FollowLine{
     void setup();
     void findDeraction();
     void follow(short speed);
+
+    uint8_t getLineThickness() const{return lineThickness;}
 };

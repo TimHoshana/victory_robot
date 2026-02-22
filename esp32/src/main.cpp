@@ -1,12 +1,10 @@
 #include <Arduino.h>
-#include <Wire.h>
 #include "configs.h"
-#include "engines/motor.h"
 #include "drivers/move.h"
 #include "drivers/followLine.h"
 #include "sensorse/Ultrasonic.h"
 #include "drivers/obstacle.h"
-#include "sensorse/colorReceiving.h"
+#include "drivers/crossroads.h"
 
 // 🔹 ПРОТОТИПЫ ЗАДАЧ
 void Task1code(void * parameter);
@@ -17,6 +15,7 @@ QTR *Qtr = new QTR(qtrSensor, qrtMax, qrtMin, qtrLed);
 
 FollowLine followLine(&move, Qtr);
 Obstacle obsticale(&move, Qtr);
+Crossroads crossroads(&move);
 
 TaskHandle_t Task1;
 TaskHandle_t Task2;
@@ -36,10 +35,9 @@ void setup() {
     move.setup();
     followLine.setup();
     obsticale.setup();
+    crossroads.begin();
     // Инициализация I2C на ESP32 (SDA, SCL)
     // По умолчанию SDA - 21, SCL - 22. Можно изменить: Wire.begin(SDA_PIN, SCL_PIN);
-    Wire.begin(); 
-    Wire.setClock(400000); 
     
     Serial.println("I2C Master Ready. Reading from Nano...");
 
@@ -74,22 +72,9 @@ void Task1code(void * parameter) {
         else
           obsticale.findDeraction();
         obsticale.distanceCheck();
-        //followLine.printData();
-
-
-        if(turn){
-            colorCheck(NANO_LEFT_ADDR, rightColor);
-            turn = false;
-        }
-        else{
-            colorCheck(NANO_RIGHT_ADDR, leftColor);
-            turn = true;
-        } 
-        Serial.print(leftColor == 0 ? "White " : leftColor==1 ? "Black " : leftColor== 3 ? "Red" : "Green ");
-        Serial.print(" Left: ");
-        Serial.print(rightColor == 0 ? "White" : rightColor==1 ? "Black " : rightColor== 3 ? "Red" : "Green ");
-        //Serial.println();
-        followLine.printData();
+        crossroads.colorCheck();
+        crossroads.printData();
+        //followLine.printData(); 
   // Здесь ESP32 может делать другую работу, цикл не заблокирован!
         vTaskDelay(1); //  очень желательно
     }
@@ -97,8 +82,10 @@ void Task1code(void * parameter) {
 
 void Task2code(void *parameter) {
     for (;;) {
-        if(!obsticale.obstacleDietacted())
+        if(!obsticale.obstacleDietacted() && !crossroads.cross())
           followLine.follow(255);
+        else if(crossroads.cross())
+          crossroads.crossing(255, followLine.getLineThickness());
         obsticale.obstaceAvoidance(255);
         vTaskDelay(1); //  очень желательно
 

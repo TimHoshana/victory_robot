@@ -1,20 +1,27 @@
 #include <Arduino.h>
+#include "Wire.h"
 #include "sensorse/colorReceiving.h"
+#include "Move.h"
 #include "config.h"
 
-enum  deractions : uint8_t {forward, left, right, turnaround};
-enum color : uint8_t {white, black, grey, red, green};
-
+enum  deractions : uint8_t {Forward, Left, Right, Turnback};
 
 class Crossroads {
     private:
     Move *_move;
-    QTR *_qtr;
-    color leftColor;
-    color rightColor;
+    deractions deraction;
+
+    colors leftColor;
+    colors rightColor;
+
+    
     public:
-    Crossroads(Move *move, QTR *qtr);
-    void setup();
+    Crossroads(Move *move);
+    void begin();
     void colorCheck();
-    void follow(short speed);
+    void crossing(short speed, uint8_t lineThickness);
+    void printData();
+    bool cross(){
+        return deraction != Forward;
+    }
 };  

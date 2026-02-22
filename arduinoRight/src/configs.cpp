@@ -11,5 +11,5 @@ const uint8_t ADDRESS = 0x04; //RUGHT address
 //const uint8_t ADDRESS = 0x05; //LEFT address
 
 
-const uint8_t contrastMax = 20;
-const uint8_t brightness = 210;
+const uint8_t contrastMax = 16;
+const uint8_t brightness = 190;

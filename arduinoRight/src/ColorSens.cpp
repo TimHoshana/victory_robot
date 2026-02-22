@@ -30,7 +30,7 @@ color ColorSens::colorCheck(){
   }
   else{
     if(maxColor ==  0){
-      return red;
+      return white;
     }
     else{
       return green;
@@ -83,8 +83,8 @@ void ColorSens::printData() {
   }
   else{
     if(maxColor ==  0){
-      Serial.println(" - RED detected!");
-      digitalWrite(ledPin_, LOW);}
+      Serial.println(" - White detected!");
+      digitalWrite(ledPin_, HIGH);}
     else{
       Serial.println(" - GREEN detected!");
       digitalWrite(ledPin_, LOW);}
