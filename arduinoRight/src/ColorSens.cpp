@@ -21,7 +21,7 @@ void ColorSens::contrastCheck(){
 }
 
 color ColorSens::colorCheck(){
-  if(contrast < contrastMax){
+  if(abs(contrast) < contrastMax){
     if(Colors[0] > brightness){
       return white;
     } else{
@@ -72,7 +72,7 @@ void ColorSens::printData() {
   Serial.print(" G = "); Serial.print(greenColor);
   Serial.print(" Contrast = " + String(contrast));
 
-  if(contrast < contrastMax){
+  if(abs(contrast) < contrastMax){
     if(Colors[0] > brightness){
       Serial.println(" - White detected!");
       digitalWrite(ledPin_, HIGH);

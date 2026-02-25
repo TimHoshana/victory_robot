@@ -3,6 +3,8 @@
 #include "sensorse/colorReceiving.h"
 #include "Move.h"
 #include "config.h"
+#include <iostream>
+#include <cmath> 
 
 enum  deractions : uint8_t {Forward, Left, Right, Turnback};
 
@@ -13,6 +15,7 @@ class Crossroads {
 
     colors leftColor;
     colors rightColor;
+    uint32_t crossDelay;
 
     
     public:

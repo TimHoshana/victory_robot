@@ -1,4 +1,6 @@
 #include "crossroads.h"
+#include <iostream>
+#include <cmath> 
 
 Crossroads::Crossroads(Move *move){
     _move = move;
@@ -12,33 +14,28 @@ void Crossroads::begin(){
 void Crossroads::colorCheck(){
     static colors lastLeftColor;
     static colors lastRightColor;
-    static bool turn;   
-    
+    static bool turn;
     if(turn){
-        fetchColorI2C(NANO_LEFT_ADDR, rightColor);
+        fetchColorI2C(NANO_RIGHT_ADDR, rightColor);
         turn = false;}
     else{
-        fetchColorI2C(NANO_RIGHT_ADDR, leftColor);
+        fetchColorI2C(NANO_LEFT_ADDR, leftColor);
         turn = true;}
 
     bool rightBecameGreen = rightColor == green  && lastRightColor == white;
     bool leftBecameGreen = leftColor == green && lastLeftColor == white;
     Serial.print(rightBecameGreen);
-    if (leftBecameGreen)
+    if (leftBecameGreen){
         deraction = Left;
-    else if (rightBecameGreen)
-        deraction = Right;
-    if((deraction == Left || deraction == Right) && 
-       (leftColor != green && rightColor != green))
-        deraction = Turnback;
-
-    
-    if (deraction){
-        if(deraction == Left && rightBecameGreen)
-            deraction = Turnback;
-        else if(deraction == Right && leftBecameGreen)
-            deraction = Turnback;   
+        crossDelay = millis() + ((delayPower*652500)/(speed*_move->motorSpeed));
     }
+    else if (rightBecameGreen){
+        deraction = Right;
+        crossDelay = millis() + ((delayPower*652500)/(speed*_move->motorSpeed));
+    }
+
+    if (crossDelay < millis())
+         deraction = Forward;
     lastLeftColor = leftColor;
     lastRightColor = rightColor;
 }
@@ -54,9 +51,6 @@ void Crossroads::crossing(short speed, uint8_t lineThickness){
         _move->follow(speed, crossRotatioonPower);
         break;
     case Turnback:
-        _move->follow(speed, 255);
-        if (lineThickness && !lastLineThickness)
-            deraction = Forward;
         break;
     }
     lastLineThickness = lineThickness;

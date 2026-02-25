@@ -40,6 +40,7 @@ extern const uint16_t stopInterval; //In millimeters. интервал для о
 extern const uint16_t rotationRadius; //In millimeters. радиус поворота робота
 
 extern const uint8_t crossRotatioonPower; //относительно силы поворота меняеть радиус поворота на перекрестке. от 0 до 255. 255 - максимальный радиус, 0 - минимальный радиус(едит прямо).
+extern const uint8_t delayPower; 
 
 
 enum motorProportions : uint8_t {propLeft, propRight}; //отнасительноя разнеца в скоростях мотора.

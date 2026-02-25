@@ -13,7 +13,7 @@ class ColorSens {
     int redColor = 0, greenColor = 0, blueColor = 0;
 
     uint16_t Colors[3] = {2, 2, 2};
-    uint8_t contrast;
+    short contrast;
 
     void contrastCheck();
 

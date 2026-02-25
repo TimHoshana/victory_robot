@@ -66,7 +66,7 @@ void setup() {
 void Task1code(void * parameter) {
     static bool turn;
     for (;;) {
-        if(!obsticale.obstacleDietacted()){
+        if(true){
           followLine.findDeraction();
         }
         else
@@ -82,11 +82,11 @@ void Task1code(void * parameter) {
 
 void Task2code(void *parameter) {
     for (;;) {
-        if(!obsticale.obstacleDietacted() && !crossroads.cross())
+        if(!crossroads.cross())
           followLine.follow(255);
         else if(crossroads.cross())
           crossroads.crossing(255, followLine.getLineThickness());
-        obsticale.obstaceAvoidance(255);
+        //obsticale.obstaceAvoidance(255);
         vTaskDelay(1); //  очень желательно
 
     }
