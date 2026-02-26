@@ -27,11 +27,11 @@ void Crossroads::colorCheck(){
     Serial.print(rightBecameGreen);
     if (leftBecameGreen){
         deraction = Left;
-        crossDelay = millis() + ((delayPower*652500)/(speed*_move->motorSpeed));
+        crossDelay = millis() + delayPower;
     }
     else if (rightBecameGreen){
         deraction = Right;
-        crossDelay = millis() + ((delayPower*652500)/(speed*_move->motorSpeed));
+        crossDelay = millis() + delayPower;
     }
 
     if (crossDelay < millis())
