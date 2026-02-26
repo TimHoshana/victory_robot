@@ -15,6 +15,8 @@ void Crossroads::colorCheck(){
     static colors lastLeftColor;
     static colors lastRightColor;
     static bool turn;
+    static bool rightBecameGreen;
+    static bool leftBecameGreen;
     if(turn){
         fetchColorI2C(NANO_RIGHT_ADDR, rightColor);
         turn = false;}
@@ -22,8 +24,8 @@ void Crossroads::colorCheck(){
         fetchColorI2C(NANO_LEFT_ADDR, leftColor);
         turn = true;}
 
-    bool rightBecameGreen = rightColor == green  && lastRightColor == white;
-    bool leftBecameGreen = leftColor == green && lastLeftColor == white;
+    rightBecameGreen = rightColor == green  && lastRightColor == white;
+    leftBecameGreen = leftColor == green && lastLeftColor == white;
     Serial.print(rightBecameGreen);
     if (leftBecameGreen){
         deraction = Left;
@@ -34,8 +36,15 @@ void Crossroads::colorCheck(){
         crossDelay = millis() + delayPower;
     }
 
-    if (crossDelay < millis())
+    if (crossDelay < millis() && deraction != Turnback)
          deraction = Forward;
+
+    if (deraction){
+        if(rightBecameGreen && rightBecameGreen)
+            deraction = Turnback;
+        else if(deraction == Right && leftBecameGreen)
+            deraction = Turnback;   
+    }
     lastLeftColor = leftColor;
     lastRightColor = rightColor;
 }
@@ -51,8 +60,12 @@ void Crossroads::crossing(short speed, uint8_t lineThickness){
         _move->follow(speed, crossRotatioonPower);
         break;
     case Turnback:
+        _move->follow(speed, 255);
+        if (lineThickness && !lastLineThickness)
+            deraction = Forward;
         break;
-    }
+    }  
+    
     lastLineThickness = lineThickness;
 }
 
