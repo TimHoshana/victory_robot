@@ -72,8 +72,9 @@ void Task1code(void * parameter) {
         else
           obsticale.findDeraction();
         obsticale.distanceCheck();
-        crossroads.colorCheck();
+        crossroads.colorCheck(followLine.getLineThickness());
         //crossroads.printData();
+        crossroads.printMode();
         followLine.printData(); 
   // Здесь ESP32 может делать другую работу, цикл не заблокирован!
         vTaskDelay(1); //  очень желательно

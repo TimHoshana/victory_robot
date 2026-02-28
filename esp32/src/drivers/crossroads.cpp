@@ -11,7 +11,7 @@ void Crossroads::begin(){
     Wire.setClock(400000); 
 }
 
-void Crossroads::colorCheck(){
+void Crossroads::colorCheck(uint8_t lineThickness){
     static colors lastLeftColor;
     static colors lastRightColor;
     static bool turn;
@@ -26,24 +26,22 @@ void Crossroads::colorCheck(){
 
     rightBecameGreen = rightColor == green  && lastRightColor == white;
     leftBecameGreen = leftColor == green && lastLeftColor == white;
-    Serial.print(rightBecameGreen);
-    if (leftBecameGreen){
+    Serial.print(deraction);
+    if (leftColor == green && lineThickness > 3 && deraction == Forward){
         deraction = Left;
         crossDelay = millis() + delayPower;
     }
-    else if (rightBecameGreen){
+    else if (rightColor == green && lineThickness > 3 && deraction == Forward){
         deraction = Right;
         crossDelay = millis() + delayPower;
     }
 
-    if (crossDelay < millis() && deraction != Turnback)
+    if (crossDelay < millis())
          deraction = Forward;
 
-    if (deraction){
-        if(rightBecameGreen && rightBecameGreen)
-            deraction = Turnback;
-        else if(deraction == Right && leftBecameGreen)
-            deraction = Turnback;   
+    if (leftColor == green && rightColor == green && lineThickness > 4){
+        deraction = Turnback;
+        crossDelay = millis() + 3*delayPower;
     }
     lastLeftColor = leftColor;
     lastRightColor = rightColor;
@@ -61,9 +59,6 @@ void Crossroads::crossing(short speed, uint8_t lineThickness){
         break;
     case Turnback:
         _move->follow(speed, 255);
-        if (lineThickness && !lastLineThickness)
-            deraction = Forward;
-        break;
     }  
     
     lastLineThickness = lineThickness;

@@ -31,18 +31,18 @@ const uint8_t NANO_LEFT_ADDR = 0x04;
 
 
 //ROBBOT PORAMETORS
-uint8_t speed = 100; //отнасительноя разнеца в градусах для поворота.
+uint8_t speed = 120; //отнасительноя разнеца в градусах для поворота.
 
 //follow line
 uint8_t rotationPawer = 55; //отнасительноя разнеца в градусах для поворота.
-const uint16_t rotationDelay =  400; //задержка для поворота;
+const uint16_t rotationDelay =  600; //задержка для поворота;
 
 //obstacle
 const uint16_t stopDistance = 500; //In millimeters. дистанция для остановки перед препятствием
 const uint16_t stopInterval = 900; //In millimeters. интервал для остановки перед препятствием
 const uint16_t rotationRadius = 800; //In millimeters. радиус поворота робота
 
-const uint8_t crossRotatioonPower = 255; //относительно силы поворота меняеть радиус поворота на перекрестке. от 0 до 255. 255 - максимальный радиус, 0 - минимальный радиус(едит прямо).
+const uint8_t crossRotatioonPower = 220; //относительно силы поворота меняеть радиус поворота на перекрестке. от 0 до 255. 255 - максимальный радиус, 0 - минимальный радиус(едит прямо).
 const uint16_t delayPower = 400;
 
 // QTR calibration

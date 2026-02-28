@@ -19,7 +19,7 @@ public:
         motor2->setup();
     }
     void follow(int _speed, int deraction){
-        
+        deraction += -12;
         int robotSpeed = (motorSpeed*pos(abs(_speed)-abs(deraction))) / (255);
         int derSpeed = (_speed*deraction*motorSpeed) / 65025;
         motor1->Go(robotSpeed-2*derSpeed);

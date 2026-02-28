@@ -21,10 +21,16 @@ class Crossroads {
     public:
     Crossroads(Move *move);
     void begin();
-    void colorCheck();
+    void colorCheck(uint8_t lineThickness);
     void crossing(short speed, uint8_t lineThickness);
     void printData();
     bool cross(){
         return deraction != Forward;
+    }
+    void printMode (){
+        Serial.print("Left: ");
+        Serial.print(leftColor == 0 ? "White " : leftColor==1 ? "Black " : leftColor== 3 ? "Red" : "Green ");
+        Serial.print("Right: ");
+        Serial.print(rightColor == 0 ? "White" : rightColor==1 ? "Black " : rightColor== 3 ? "Red" : "Green ");
     }
 };  
