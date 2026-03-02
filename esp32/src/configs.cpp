@@ -31,7 +31,7 @@ const uint8_t NANO_LEFT_ADDR = 0x04;
 
 
 //ROBBOT PORAMETORS
-uint8_t speed = 120; //отнасительноя разнеца в градусах для поворота.
+uint8_t speed = 150; //отнасительноя разнеца в градусах для поворота.
 
 //follow line
 uint8_t rotationPawer = 55; //отнасительноя разнеца в градусах для поворота.

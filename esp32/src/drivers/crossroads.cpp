@@ -41,7 +41,7 @@ void Crossroads::colorCheck(uint8_t lineThickness){
 
     if (leftColor == green && rightColor == green && lineThickness > 4){
         deraction = Turnback;
-        crossDelay = millis() + 3*delayPower;
+        crossDelay = millis() + (4*delayPower)/2;
     }
     lastLeftColor = leftColor;
     lastRightColor = rightColor;
