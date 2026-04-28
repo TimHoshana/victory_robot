@@ -14,6 +14,8 @@ public:
         : IN1(in1), IN2(in2), channel1(ch1), channel2(ch2) {}
 
     void setup() {
+        pinMode(IN1, OUTPUT);
+        pinMode(IN2, OUTPUT);
         ledcSetup(channel1, 20000, 8); // 20 kHz, 8 бит
         ledcSetup(channel2, 20000, 8);
 

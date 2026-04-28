@@ -21,10 +21,10 @@ void QTR::lineDetaction(){
   qtr.read(sensorValues);
   for (uint8_t i = 0; i < SensorCount; i++)
   {
-      _linePosition[i] = map(sensorValues[i], 0, 4095, 0, 255);
+    _linePosition[i] = map(sensorValues[i], 0, 4095, 0, 255);
   }
 }
-
+ 
 void QTR::calibration(){
     for (uint16_t i = 0; i < 400; i++)
     {

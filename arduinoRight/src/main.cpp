@@ -44,6 +44,7 @@ void loop() {
   // В твоем классе переменные private, поэтому я предполагаю, что ты добавил геттеры или сделал их public)
   // Для примера запишем их в массив:
   color colorDetact = colorSens1.colorCheck();
+  
   if(colorDetact == bleck){
     bleckRegister++;
   }

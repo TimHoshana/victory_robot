@@ -36,6 +36,8 @@ void setup() {
     followLine.setup();
     obsticale.setup();
     crossroads.begin();
+    move.go(0);
+    delay(200);
     // Инициализация I2C на ESP32 (SDA, SCL)
     // По умолчанию SDA - 21, SCL - 22. Можно изменить: Wire.begin(SDA_PIN, SCL_PIN);
     
@@ -63,18 +65,17 @@ void setup() {
     );
 }
 
-void Task1code(void * parameter) {
+void Task1code(void *   parameter) {
     static bool turn;
     for (;;) {
-        if(true){
+        if(!obsticale.obstacleDietacted()){
           followLine.findDeraction();
         }
         else
           obsticale.findDeraction();
         obsticale.distanceCheck();
-        crossroads.colorCheck(followLine.getLineThickness());
+        //obsticale.printSonicData();
         //crossroads.printData();
-        crossroads.printMode();
         followLine.printData(); 
   // Здесь ESP32 может делать другую работу, цикл не заблокирован!
         vTaskDelay(1); //  очень желательно
@@ -84,10 +85,10 @@ void Task1code(void * parameter) {
 void Task2code(void *parameter) {
     for (;;) {
         if(!crossroads.cross())
-          followLine.follow(255);
+          followLine.follow();
         else if(crossroads.cross())
           crossroads.crossing(255, followLine.getLineThickness());
-        //obsticale.obstaceAvoidance(255);
+        obsticale.obstaceAvoidance(255);
         vTaskDelay(1); //  очень желательно
 
     }
